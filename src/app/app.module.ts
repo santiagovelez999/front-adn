@@ -7,7 +7,7 @@ import { HomeComponent } from '@home/home.component';
 import { ProductoModule } from '@producto/producto.module';
 import { CoreModule } from '@core/core.module';
 import { CookieService } from 'ngx-cookie-service';
-import { SuscripcionModule } from './feature/suscripcion/suscripcion.module';
+import { SuscripcionModule } from '@suscripcion/suscripcion.module';
 
 
 

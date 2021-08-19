@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Suscripcion } from '@suscripcion/shared/model/suscripcion';
+import { SuscripcionService } from '@suscripcion/shared/service/suscripcion.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-listar-suscripcion',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListarSuscripcionComponent implements OnInit {
 
-  constructor() { }
+  public listSuscripciones = new Observable<Suscripcion[]>();
+  constructor(protected suscripcionService:SuscripcionService) { }
 
   ngOnInit(): void {
+    this.listSuscripciones = this.suscripcionService.consultar();
+    console.log(this.listSuscripciones);
   }
 
 }

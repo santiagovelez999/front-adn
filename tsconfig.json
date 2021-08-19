@@ -33,11 +33,11 @@
       "@producto/*": [
         "src/app/feature/producto/*"
       ],
-      "@shared/*": [
-        "src/app/shared/*"
-      ],
       "@suscripcion/*": [
         "src/app/feature/suscripcion/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
       ]
     }
   },
