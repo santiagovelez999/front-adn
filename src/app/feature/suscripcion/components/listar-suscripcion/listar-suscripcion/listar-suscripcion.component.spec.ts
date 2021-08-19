@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SuscripcionComponent } from './suscripcion.component';
+import { ListarSuscripcionComponent } from './listar-suscripcion.component';
 
-describe('SuscripcionComponent', () => {
-  let component: SuscripcionComponent;
-  let fixture: ComponentFixture<SuscripcionComponent>;
+describe('ListarSuscripcionComponent', () => {
+  let component: ListarSuscripcionComponent;
+  let fixture: ComponentFixture<ListarSuscripcionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SuscripcionComponent ]
+      declarations: [ ListarSuscripcionComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SuscripcionComponent);
+    fixture = TestBed.createComponent(ListarSuscripcionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
