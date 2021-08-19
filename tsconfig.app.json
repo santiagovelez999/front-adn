@@ -19,6 +19,9 @@
       ],
       "@shared/*": [
         "src/app/shared/*"
+      ],
+      "@suscripcion/*": [
+        "src/app/feature/suscripcion/*"
       ]
     }
   },
