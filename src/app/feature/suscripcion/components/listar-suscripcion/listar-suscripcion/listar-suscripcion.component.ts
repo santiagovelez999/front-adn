@@ -35,10 +35,12 @@ export class ListarSuscripcionComponent implements OnInit {
     );
   }
 
-  abrirModalDeCrear(){
+  abrirModalDeCrear(datosSuscripcion:Suscripcion = null){
+    console.log(datosSuscripcion);
     const dialogRef = this.dialog.open(CrearSuscripcionComponent, {
       height: '500px',
-      width: '350px'
+      width: '350px',
+      data:datosSuscripcion
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){

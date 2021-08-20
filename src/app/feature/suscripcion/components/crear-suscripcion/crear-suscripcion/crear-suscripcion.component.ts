@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Suscripcion } from '@suscripcion/shared/model/suscripcion';
 import { SuscripcionInterface } from '@suscripcion/shared/model/suscripcionInterface';
 import { SuscripcionService } from '@suscripcion/shared/service/suscripcion.service';
 
@@ -16,14 +18,25 @@ export class CrearSuscripcionComponent implements OnInit {
   formularioSuscripcion: FormGroup;
   formularioInvalido: boolean = false;
   cerrar:boolean = true;
-  titulo:String = "Crear";
+  titulo:String = null;
+  subTituloCrear:String = "Crear";
+  subTituloEditar:String = "Editar";
+  idSuscripcion:number = 0;
+  
 
   constructor(private formBuilder: FormBuilder, 
               private miDatePipe: DatePipe,
-              private suscripcionService:SuscripcionService) { }
+              private suscripcionService:SuscripcionService,
+              @Inject(MAT_DIALOG_DATA) private datosSuscripcion: Suscripcion) { }
 
   ngOnInit(): void {
     this.iniciarFormulario();
+    if(this.datosSuscripcion != null){
+      this.titulo =this.subTituloEditar;
+      this.precargarDatosEnFormulario();
+    }else{
+      this.titulo =this.subTituloCrear;
+    }
   }
 
   iniciarFormulario() {
@@ -35,6 +48,17 @@ export class CrearSuscripcionComponent implements OnInit {
       fechaRegistro: new FormControl("", Validators.required)
     });
   }
+
+  precargarDatosEnFormulario(){
+    console.log(this.transformarFechaEntrada(this.datosSuscripcion.fechaRegistro));
+    this.idSuscripcion = this.datosSuscripcion.idSuscripcion;
+    this.formularioSuscripcion.controls["idCliente"].setValue(this.datosSuscripcion.idCliente);
+    this.formularioSuscripcion.controls["valorSuscripcion"].setValue(this.datosSuscripcion.valorSuscripcion);
+    this.formularioSuscripcion.controls["tipoSuscripcion"].setValue(this.datosSuscripcion.tipoSuscripcion);
+    this.formularioSuscripcion.controls["fechaRegistro"].
+    setValue(this.transformarFechaEntrada(this.datosSuscripcion.fechaRegistro));
+  }
+
 
   guardar() {
     if (this.validarFormulario()) {
@@ -64,15 +88,21 @@ export class CrearSuscripcionComponent implements OnInit {
       idCliente: this.formularioSuscripcion.get("idCliente").value,
       valorSuscripcion: this.formularioSuscripcion.get("valorSuscripcion").value,
       tipoSuscripcion: this.formularioSuscripcion.get("tipoSuscripcion").value,
-      fechaRegistro: this.transformarFecha()
+      fechaRegistro: this.transformarFechaEnvio()
     }
     return datosAEnviar;
   }
 
-  transformarFecha() {
+  transformarFechaEnvio() {
     return this.miDatePipe.transform(this.formularioSuscripcion.
       get("fechaRegistro").value, 'yyyy-MM-dd HH:mm:ss');
   }
+
+  transformarFechaEntrada(fecha:Date) {
+    return this.miDatePipe.transform(fecha, 'dd/MM/yyyy');
+  }
+
+  
 
   limpiarFormulario(){
     this.formularioSuscripcion.get("idSuscripcion").setValue("");
