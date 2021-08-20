@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Suscripcion } from '../model/suscripcion';
+import { ClienteInterface } from '../model/suscripcionInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class SuscripcionService {
     return this.http.get<Suscripcion[]>(`${environment.endpoint}${this.nombreEntidad}` );
   }
 
-  /*public guardar(suscripcion: Suscripcion) {
-  }*/
+  public guardar(suscripcion: ClienteInterface) {
+    return this.http.post<any>(`${environment.endpoint}${this.nombreEntidad}`, suscripcion);
+  }
 }
