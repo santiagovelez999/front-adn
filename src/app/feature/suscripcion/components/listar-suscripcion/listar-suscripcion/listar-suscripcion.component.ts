@@ -11,11 +11,23 @@ import { Observable } from 'rxjs';
 export class ListarSuscripcionComponent implements OnInit {
 
   public listSuscripciones = new Observable<Suscripcion[]>();
-  constructor(protected suscripcionService:SuscripcionService) { }
+  public listaDeDatosSuscripcion:Suscripcion[] = [];
+
+  constructor(protected suscripcionService: SuscripcionService) { }
 
   ngOnInit(): void {
-    this.listSuscripciones = this.suscripcionService.consultar();
-    console.log(this.listSuscripciones);
+    this.listarSuscripciones();
   }
 
+
+  listarSuscripciones(){
+    this.suscripcionService.consultar().subscribe((respuesta:Suscripcion[])=>
+    {
+      this.listaDeDatosSuscripcion = respuesta;
+      console.log(respuesta);
+    }
+    );
+  }
+
+  
 }

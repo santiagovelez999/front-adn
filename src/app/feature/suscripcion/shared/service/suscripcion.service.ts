@@ -1,5 +1,5 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpService } from '@core-service/http.service';
 import { environment } from 'src/environments/environment';
 import { Suscripcion } from '../model/suscripcion';
 
@@ -8,14 +8,14 @@ import { Suscripcion } from '../model/suscripcion';
 })
 export class SuscripcionService {
 
-  constructor(protected http: HttpService) {}
+  private nombreEntidad = "/suscripcion";
+
+  constructor(protected http: HttpClient) {}
 
   public consultar() {
-    return this.http.doGet<Suscripcion[]>(`${environment.endpoint}/listar`, this.http.optsName('consultar suscripcion'));
+    return this.http.get<Suscripcion[]>(`${environment.endpoint}${this.nombreEntidad}` );
   }
 
-  public guardar(suscripcion: Suscripcion) {
-    return this.http.doPost<Suscripcion, boolean>(`${environment.endpoint}`, suscripcion,
-                                                this.http.optsName('crear/actualizar suscripcion'));
-  }
+  /*public guardar(suscripcion: Suscripcion) {
+  }*/
 }

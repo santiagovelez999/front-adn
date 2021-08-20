@@ -2,9 +2,13 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+let servidor:String = "http://localhost";
+let puerto:String = "8083";
+let proyecto:String = "/gym";
+
 export const environment = {
   production: false,
-  endpoint: '/suscripcion'
+  endpoint: servidor + ':'+ puerto + '' + proyecto
 };
 
 /*
