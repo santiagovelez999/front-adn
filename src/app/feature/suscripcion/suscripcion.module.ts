@@ -5,7 +5,9 @@ import { ListarSuscripcionComponent } from './components/listar-suscripcion/list
 import { SuscripcionComponent } from './components/suscripcion/suscripcion.component';
 import { SuscripcionService } from './shared/service/suscripcion.service';
 import { SharedModule } from '@shared/shared.module';
-
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -17,6 +19,11 @@ import { SharedModule } from '@shared/shared.module';
   imports: [
     SuscripcionRoutingModule,
     SharedModule,
+
+    //ANGULAR MATERIAL//
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [SuscripcionService]
 })

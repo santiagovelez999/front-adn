@@ -1,1 +1,42 @@
-<p>listar-suscripcion works!</p>
+<table mat-table [dataSource]="dataSource " class="mat-elevation-z8">
+
+
+    <ng-container matColumnDef="idSuscripcion">
+        <th mat-header-cell *matHeaderCellDef> ID SUSCRIPCIÓN </th>
+        <td mat-cell *matCellDef="let element"> {{element.idSuscripcion}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="idCliente">
+        <th mat-header-cell *matHeaderCellDef> ID CLIENTE </th>
+        <td mat-cell *matCellDef="let element"> {{element.idCliente}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="valorSuscripcion">
+        <th mat-header-cell *matHeaderCellDef> VALOR SUSCRIPCIÓN </th>
+        <td mat-cell *matCellDef="let element"> {{element.valorSuscripcion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipoSuscripcion">
+        <th mat-header-cell *matHeaderCellDef> TIPO SUSCRIPCIÓN </th>
+        <td mat-cell *matCellDef="let element"> {{element.tipoSuscripcion}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="fechaRegistro">
+        <th mat-header-cell *matHeaderCellDef> FECHA REGISTRO </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaRegistro}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="opcion">
+        <th mat-header-cell *matHeaderCellDef> OPCIOÓN </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-mini-fab color="primary" aria-label="Editar información">
+                <mat-icon>mode_edit</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

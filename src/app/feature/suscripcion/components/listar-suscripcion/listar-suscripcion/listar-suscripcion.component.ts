@@ -10,10 +10,14 @@ import { Observable } from 'rxjs';
 })
 export class ListarSuscripcionComponent implements OnInit {
 
-  public listSuscripciones = new Observable<Suscripcion[]>();
-  public listaDeDatosSuscripcion:Suscripcion[] = [];
+  listSuscripciones = new Observable<Suscripcion[]>();
+  dataSource :Suscripcion[] = [];
+  displayedColumns: string[] = ['idSuscripcion', 'idCliente', 'valorSuscripcion',
+                                'tipoSuscripcion', 'fechaRegistro', 'opcion'];
 
-  constructor(protected suscripcionService: SuscripcionService) { }
+  constructor(protected suscripcionService: SuscripcionService) { 
+    
+  }
 
   ngOnInit(): void {
     this.listarSuscripciones();
@@ -23,7 +27,7 @@ export class ListarSuscripcionComponent implements OnInit {
   listarSuscripciones(){
     this.suscripcionService.consultar().subscribe((respuesta:Suscripcion[])=>
     {
-      this.listaDeDatosSuscripcion = respuesta;
+      this.dataSource  = respuesta;
       console.log(respuesta);
     }
     );
