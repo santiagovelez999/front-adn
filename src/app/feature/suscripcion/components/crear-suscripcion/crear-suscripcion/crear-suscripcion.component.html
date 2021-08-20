@@ -1,1 +1,29 @@
-<p>crear-suscripcion works!</p>
+<form>
+    <mat-form-field appearance="fill">
+        <mat-label>Id cliente</mat-label>
+        <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Valor suscripción</mat-label>
+        <input matInput>
+    </mat-form-field>
+
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Tipo suscripción</mat-label>
+        <mat-select >
+          <mat-option  value="XXX">Mensual</mat-option>
+          <mat-option  value="XV">Quincenal</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button mat-mini-fab color="primary" aria-label="Guardar">
+        <mat-icon>check</mat-icon>
+    </button>
+
+    <button mat-mini-fab color="warn" aria-label="Cancelar" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+
+
+</form>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CrearSuscripcionComponent } from '@suscripcion/components/crear-suscripcion/crear-suscripcion/crear-suscripcion.component';
 import { Suscripcion } from '@suscripcion/shared/model/suscripcion';
 import { SuscripcionService } from '@suscripcion/shared/service/suscripcion.service';
 import { Observable } from 'rxjs';
@@ -15,7 +17,7 @@ export class ListarSuscripcionComponent implements OnInit {
   displayedColumns: string[] = ['idSuscripcion', 'idCliente', 'valorSuscripcion',
                                 'tipoSuscripcion', 'fechaRegistro', 'opcion'];
 
-  constructor(protected suscripcionService: SuscripcionService) { 
+  constructor(protected suscripcionService: SuscripcionService, public dialog: MatDialog) { 
     
   }
 
@@ -31,6 +33,17 @@ export class ListarSuscripcionComponent implements OnInit {
       console.log(respuesta);
     }
     );
+  }
+
+  abrirModalDeCrear(){
+    const dialogRef = this.dialog.open(CrearSuscripcionComponent, {
+      height: '500px',
+      width: '350px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed'+ result);
+    });
   }
 
   

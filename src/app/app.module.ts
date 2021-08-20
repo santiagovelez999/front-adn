@@ -8,7 +8,7 @@ import { ProductoModule } from '@producto/producto.module';
 import { CoreModule } from '@core/core.module';
 import { CookieService } from 'ngx-cookie-service';
 import { SuscripcionModule } from '@suscripcion/suscripcion.module';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -23,7 +23,8 @@ import { SuscripcionModule } from '@suscripcion/suscripcion.module';
     AppRoutingModule,
     ProductoModule,
     SuscripcionModule,
-    CoreModule
+    CoreModule,
+    BrowserAnimationsModule
   ],
   providers: [CookieService],
     bootstrap: [AppComponent],
