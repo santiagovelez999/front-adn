@@ -1,50 +1,57 @@
+<div class="espacio-contenedor">
+    <mat-card class="contenedor centrar">
+        <mat-card-header class="barra-superior">
+            <mat-card-subtitle>Lista de datos</mat-card-subtitle>
+            
+            <button  mat-mini-fab color="primary" aria-label="Nuevo" (click)="abrirModalDeCrear();">
+                <mat-icon>add</mat-icon>
+            </button>
+            
+        </mat-card-header>
+        <mat-card-content>
+            <table mat-table [dataSource]="dataSource " class="mat-elevation-z8 tabla-listar centrar">
+                <ng-container matColumnDef="idSuscripcion">
+                    <th mat-header-cell *matHeaderCellDef> ID SUSCRIPCIÓN </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idSuscripcion}} </td>
+                </ng-container>
 
-<button mat-mini-fab color="primary" aria-label="Nuevo" (click)="abrirModalDeCrear();">
-    <mat-icon>add</mat-icon>
-</button>
+                <ng-container matColumnDef="idCliente">
+                    <th mat-header-cell *matHeaderCellDef> ID CLIENTE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idCliente}} </td>
+                </ng-container>
 
-<mat-card class="example-card">
-    <mat-card-header>
-        <mat-card-subtitle>Lista de datos</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <table mat-table [dataSource]="dataSource " class="mat-elevation-z8">
-            <ng-container matColumnDef="idSuscripcion">
-                <th mat-header-cell *matHeaderCellDef> ID SUSCRIPCIÓN </th>
-                <td mat-cell *matCellDef="let element"> {{element.idSuscripcion}} </td>
-            </ng-container>
+                <ng-container matColumnDef="valorSuscripcion">
+                    <th mat-header-cell *matHeaderCellDef> VALOR SUSCRIPCIÓN </th>
+                    <td mat-cell *matCellDef="let element"> {{element.valorSuscripcion}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="idCliente">
-                <th mat-header-cell *matHeaderCellDef> ID CLIENTE </th>
-                <td mat-cell *matCellDef="let element"> {{element.idCliente}} </td>
-            </ng-container>
+                <ng-container matColumnDef="tipoSuscripcion">
+                    <th mat-header-cell *matHeaderCellDef> TIPO SUSCRIPCIÓN </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tipoSuscripcion}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="valorSuscripcion">
-                <th mat-header-cell *matHeaderCellDef> VALOR SUSCRIPCIÓN </th>
-                <td mat-cell *matCellDef="let element"> {{element.valorSuscripcion}} </td>
-            </ng-container>
+                <ng-container matColumnDef="fechaRegistro">
+                    <th mat-header-cell *matHeaderCellDef> FECHA REGISTRO </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <a class="color-fecha"> 
+                            {{element.fechaRegistro | date:'dd/MM/yyyy'}}
+                        </a>
+                     
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="tipoSuscripcion">
-                <th mat-header-cell *matHeaderCellDef> TIPO SUSCRIPCIÓN </th>
-                <td mat-cell *matCellDef="let element"> {{element.tipoSuscripcion}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="fechaRegistro">
-                <th mat-header-cell *matHeaderCellDef> FECHA REGISTRO </th>
-                <td mat-cell *matCellDef="let element"> {{element.fechaRegistro | date:'dd/MM/yyyy'}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="opcion">
-                <th mat-header-cell *matHeaderCellDef> OPCIOÓN </th>
-                <td mat-cell *matCellDef="let element">
-                    <button mat-mini-fab color="primary" aria-label="Editar información" 
-                    (click)="abrirModalDeCrear(element);">
-                        <mat-icon>mode_edit</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-    </mat-card-content>
-</mat-card>
+                <ng-container matColumnDef="opcion">
+                    <th mat-header-cell *matHeaderCellDef> OPCIOÓN </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-mini-fab color="primary" aria-label="Editar información"
+                            (click)="abrirModalDeCrear(element);">
+                            <mat-icon>mode_edit</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,28 @@
+.contenedor {
+    max-width: 80%;
+  }
+
+.tabla-listar{
+    width: 80%;
+}
+
+.centrar{
+    margin: 0 auto;
+}
+
+.barra-superior{
+    margin-bottom: 3%;
+}
+
+.espacio-contenedor{
+    margin-top: 5%;
+}
+
+.color-fecha{
+    border: 1px solid #2E4053;
+    border-radius: 1%;
+    background-color: #2C3E50;
+    padding: 5%;
+    color: white;
+    
+}
