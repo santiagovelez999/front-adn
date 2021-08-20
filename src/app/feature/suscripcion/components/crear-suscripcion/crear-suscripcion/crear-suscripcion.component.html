@@ -1,29 +1,53 @@
-<form>
-    <mat-form-field appearance="fill">
-        <mat-label>Id cliente</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Valor suscripción</mat-label>
-        <input matInput>
-    </mat-form-field>
+<form [formGroup]="formularioSuscripcion">
 
-    
-    <mat-form-field appearance="fill">
-        <mat-label>Tipo suscripción</mat-label>
-        <mat-select >
-          <mat-option  value="XXX">Mensual</mat-option>
-          <mat-option  value="XV">Quincenal</mat-option>
-        </mat-select>
-    </mat-form-field>
+    <div>
+        <a *ngIf="formularioInvalido" style="color: red;">
+            Los campos marcados son obligatorios
+        </a>
+    </div>
 
-    <button mat-mini-fab color="primary" aria-label="Guardar">
-        <mat-icon>check</mat-icon>
-    </button>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Id cliente</mat-label>
+            <input formControlName="idCliente" matInput>
+        </mat-form-field>
+    </div>
 
-    <button mat-mini-fab color="warn" aria-label="Cancelar" mat-dialog-close>
-        <mat-icon>close</mat-icon>
-    </button>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Valor suscripción</mat-label>
+            <input formControlName="valorSuscripcion" matInput>
+        </mat-form-field>
+    </div>
 
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Tipo suscripción</mat-label>
+            <mat-select formControlName="tipoSuscripcion">
+                <mat-option value="XXX">Mensual</mat-option>
+                <mat-option value="XV">Quincenal</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
 
+    <div>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fechaRegistro">
+            <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <button mat-mini-fab color="primary" aria-label="Guardar" (click)="guardar();">
+            <mat-icon>check</mat-icon>
+        </button>
+
+        <button mat-mini-fab color="warn" aria-label="Cancelar" mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
 </form>

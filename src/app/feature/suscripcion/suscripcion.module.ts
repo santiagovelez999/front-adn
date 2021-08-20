@@ -13,6 +13,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -34,9 +36,11 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule 
 
   ],
-  providers: [SuscripcionService]
+  providers: [SuscripcionService, MatDatepickerModule]
 })
 export class SuscripcionModule { }
