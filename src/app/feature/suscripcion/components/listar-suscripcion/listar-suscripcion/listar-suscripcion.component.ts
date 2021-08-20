@@ -40,11 +40,11 @@ export class ListarSuscripcionComponent implements OnInit {
       height: '500px',
       width: '350px'
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed'+ result);
+      if(result){
+        this.listarSuscripciones();
+      }
     });
   }
-
   
 }

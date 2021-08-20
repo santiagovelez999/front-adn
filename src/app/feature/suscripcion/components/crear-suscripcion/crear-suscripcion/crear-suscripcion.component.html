@@ -1,53 +1,66 @@
-<form [formGroup]="formularioSuscripcion">
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>{{titulo}} Suscripcion</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="formularioSuscripcion">
 
-    <div>
-        <a *ngIf="formularioInvalido" style="color: red;">
-            Los campos marcados son obligatorios
-        </a>
-    </div>
+            <div>
+                <a *ngIf="formularioInvalido" style="color: red;">
+                    Los campos marcados son obligatorios
+                </a>
+            </div>
 
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Id cliente</mat-label>
-            <input formControlName="idCliente" matInput>
-        </mat-form-field>
-    </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Id cliente</mat-label>
+                    <input formControlName="idCliente" matInput>
+                </mat-form-field>
+            </div>
 
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Valor suscripción</mat-label>
-            <input formControlName="valorSuscripcion" matInput>
-        </mat-form-field>
-    </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Valor suscripción</mat-label>
+                    <input formControlName="valorSuscripcion" matInput>
+                </mat-form-field>
+            </div>
 
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Tipo suscripción</mat-label>
-            <mat-select formControlName="tipoSuscripcion">
-                <mat-option value="XXX">Mensual</mat-option>
-                <mat-option value="XV">Quincenal</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Tipo suscripción</mat-label>
+                    <mat-select formControlName="tipoSuscripcion">
+                        <mat-option value="XXX">Mensual</mat-option>
+                        <mat-option value="XV">Quincenal</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
-    <div>
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="fechaRegistro">
-            <mat-datepicker-toggle matSuffix [for]="picker">
-                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-    </div>
+            <div>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechaRegistro">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
 
-    <div>
-        <button mat-mini-fab color="primary" aria-label="Guardar" (click)="guardar();">
-            <mat-icon>check</mat-icon>
-        </button>
+            <div>
 
-        <button mat-mini-fab color="warn" aria-label="Cancelar" mat-dialog-close>
-            <mat-icon>close</mat-icon>
-        </button>
-    </div>
-</form>
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="botones-crear">
+            <button mat-mini-fab color="primary" aria-label="Guardar" (click)="guardar();">
+                <mat-icon>check</mat-icon>
+            </button>
+        </div>
+        <div class="botones-crear">
+            <button mat-mini-fab color="warn" aria-label="Cancelar" [mat-dialog-close]="this.cerrar">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-card-actions>
+</mat-card>

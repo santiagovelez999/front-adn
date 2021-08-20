@@ -1,4 +1,4 @@
-export interface ClienteInterface {
+export interface SuscripcionInterface {
     idCliente: number;
     valorSuscripcion: number;
     tipoSuscripcion: String;
