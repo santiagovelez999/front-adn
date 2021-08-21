@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MensajesComponent } from '@shared/directivas/error-campos/componente/mensajes/mensajes/mensajes.component';
 import { Suscripcion } from '@suscripcion/shared/model/suscripcion';
 import { SuscripcionInterface } from '@suscripcion/shared/model/suscripcionInterface';
 import { SuscripcionService } from '@suscripcion/shared/service/suscripcion.service';
@@ -23,11 +24,22 @@ export class CrearSuscripcionComponent implements OnInit {
   subTituloEditar: String = "Editar";
   idSuscripcion: number = 0;
 
+  titulosMensajes = {
+    correcto:{
+      titulo:"BIEN HECHO!",
+      icono:"mood"
+    },
+    incorrecto:{
+      titulo:"UPSS!! HA OCURRIDO UN ERROR",
+      icono:"mood_bad"
+    }
+  }
 
   constructor(private formBuilder: FormBuilder,
     private miDatePipe: DatePipe,
     private suscripcionService: SuscripcionService,
-    @Inject(MAT_DIALOG_DATA) private datosSuscripcion: Suscripcion) { }
+    @Inject(MAT_DIALOG_DATA) private datosSuscripcion: Suscripcion,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.iniciarFormulario();
@@ -88,11 +100,19 @@ export class CrearSuscripcionComponent implements OnInit {
       this.formularioInvalido = false;
       let datosAEnviar: SuscripcionInterface = this.prepararDatosDeEnvio();
       this.suscripcionService.guardar(datosAEnviar).subscribe(respuesta => {
-        console.log("datos insertados correctamente" + respuesta);
+        console.log(respuesta);
+        this.mostrarMensajes(this.titulosMensajes.correcto.titulo, 
+                             this.titulosMensajes.correcto.icono, 
+                            "Fecha vencimiento suscripción: " + respuesta.valor.fechaDeVencimientoDeLaSuscripcion,
+                            true);
         this.limpiarFormulario();
         this.formularioInvalido = false;
       }, error => {
-        console.log(error);
+        console.log(error.error.mensaje);
+        this.mostrarMensajes(this.titulosMensajes.incorrecto.titulo, 
+                             this.titulosMensajes.incorrecto.icono, 
+                             error.error.mensaje,
+                             false);
       }
       );
     } else {
@@ -118,6 +138,22 @@ export class CrearSuscripcionComponent implements OnInit {
     return datosAEnviar;
   }
 
+  mostrarMensajes(tituloMensaje:String, iconoMensaje:String, contenidoMensaje:String, estadoMensaje:boolean){
+    this.dialog.open(MensajesComponent, {
+      height: '50%',
+      width: '60%',
+      data: {titulo: tituloMensaje, icono: iconoMensaje, contenido:contenidoMensaje, estado:estadoMensaje}
+    });
+  }
+
+  limpiarFormulario() {
+    this.formularioSuscripcion.get("idSuscripcion").setValue("");
+    this.formularioSuscripcion.get("idCliente").setValue("");
+    this.formularioSuscripcion.get("valorSuscripcion").setValue("");
+    this.formularioSuscripcion.get("tipoSuscripcion").setValue("");
+    this.formularioSuscripcion.get("fechaRegistro").setValue("");
+  }
+
   transformarFechaEnvio() {
     return this.miDatePipe.transform(this.formularioSuscripcion.
       get("fechaRegistro").value, 'yyyy-MM-dd HH:mm:ss');
@@ -127,13 +163,4 @@ export class CrearSuscripcionComponent implements OnInit {
     return this.miDatePipe.transform(fecha, 'dd/MM/yyyy');
   }
 
-
-
-  limpiarFormulario() {
-    this.formularioSuscripcion.get("idSuscripcion").setValue("");
-    this.formularioSuscripcion.get("idCliente").setValue("");
-    this.formularioSuscripcion.get("valorSuscripcion").setValue("");
-    this.formularioSuscripcion.get("tipoSuscripcion").setValue("");
-    this.formularioSuscripcion.get("fechaRegistro").setValue("");
-  }
 }

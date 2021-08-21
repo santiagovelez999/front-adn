@@ -7,6 +7,11 @@ import { MensajeErrorCamposContenedorDirective } from './directivas/error-campos
 import { ErrorCamposPlantillaComponent } from './directivas/error-campos/componente/error-campos-plantilla.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TrackByPipe } from './pipe/track-by.pipe';
+import { MensajesComponent } from './directivas/error-campos/componente/mensajes/mensajes/mensajes.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -14,9 +19,10 @@ import { TrackByPipe } from './pipe/track-by.pipe';
     MensajeErrorCamposDirective,
     MensajeErrorCamposContenedorDirective,
     MensajeErrorCamposSubmitDirective,
-    TrackByPipe
+    TrackByPipe,
+    MensajesComponent
   ],
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, MatDialogModule, CommonModule],
   exports: [
     CommonModule,
     HttpClientModule,

@@ -1,0 +1,26 @@
+.titulo{
+    color: #17202A;
+    font-weight: bold;
+    font: lighter;
+}
+
+.icono{
+    font-size: 50px;
+}
+
+.contenido{
+    font-size: 1em;
+}
+
+.boton{
+    width: 80%;
+}
+
+.espacio{
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.centrar{
+    text-align: center;
+}
