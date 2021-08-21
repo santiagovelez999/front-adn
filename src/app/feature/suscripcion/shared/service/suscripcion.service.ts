@@ -20,4 +20,8 @@ export class SuscripcionService {
   public guardar(suscripcion: SuscripcionInterface) {
     return this.http.post<any>(`${environment.endpoint}${this.nombreEntidad}`, suscripcion);
   }
+
+  public actualizar(suscripcion: SuscripcionInterface) {
+    return this.http.put<any>(`${environment.endpoint}${this.nombreEntidad}/${suscripcion.idSuscripcion}`, suscripcion);
+  }
 }

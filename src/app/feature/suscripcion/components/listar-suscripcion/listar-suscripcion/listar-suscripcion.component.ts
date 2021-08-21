@@ -36,7 +36,6 @@ export class ListarSuscripcionComponent implements OnInit {
   }
 
   abrirModalDeCrear(datosSuscripcion:Suscripcion = null){
-    console.log(datosSuscripcion);
     const dialogRef = this.dialog.open(CrearSuscripcionComponent, {
       height: '500px',
       width: '350px',
