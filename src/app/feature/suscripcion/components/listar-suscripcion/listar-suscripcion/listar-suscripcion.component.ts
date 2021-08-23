@@ -33,7 +33,6 @@ export class ListarSuscripcionComponent implements OnInit {
     this.suscripcionService.consultar().subscribe((respuesta:Suscripcion[])=>
     {
       this.dataSource  = respuesta;
-      console.log(respuesta);
     }
     );
   }
@@ -53,5 +52,4 @@ export class ListarSuscripcionComponent implements OnInit {
       }
     });
   }
-  
 }

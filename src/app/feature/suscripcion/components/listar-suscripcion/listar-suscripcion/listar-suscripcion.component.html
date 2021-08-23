@@ -9,7 +9,7 @@
             
         </mat-card-header>
         <mat-card-content>
-            <table mat-table [dataSource]="dataSource " class="mat-elevation-z8 tabla-listar centrar">
+            <table id= "tablaListarSuscripcion" mat-table [dataSource]="dataSource " class="mat-elevation-z8 tabla-listar centrar">
                 <ng-container matColumnDef="idSuscripcion">
                     <th mat-header-cell *matHeaderCellDef> ID SUSCRIPCIÓN </th>
                     <td mat-cell *matCellDef="let element"> {{element.idSuscripcion}} </td>

@@ -1,20 +1,26 @@
 import { by, element } from "protractor";
 
 
-export class suscripcionPage {
+export class SuscripcionPage {
 
     //Linsk
     private linkCrearSuscripcion = element(by.id('linkCrearSuscripcion'));
     private linkListarSuscripcion = element(by.id('linkListarSuscripcion'));
 
-    //Inputs
+    //Campos de texto
     private inputIdCliente = element(by.id('idCliente'));
     private inputValorSuscripcion = element(by.id('valorSuscripcion'));
     private inputFechaRegistro = element(by.id('fechaRegistro'));
 
-    //Select
+    //Selectores
     private selectTipoSuscripcion = element(by.id('tipoSuscripcion'));
 
+    //Tabla
+    private listaSuscripciones = element.all(by.css('#tablaListarSuscripcion > thead > tr > th.mat-header-cell.cdk-header-cell'));
+
+    //Botones
+    private BotonCrear= element(by.id('botonCrearSuscripcion'));
+    private BotonCerrar = element(by.id('botonCerrarCrearSuscripcion'));
 
     async clickBotonCrearSuscripcion() {
         await this.linkCrearSuscripcion.click();
@@ -22,6 +28,14 @@ export class suscripcionPage {
 
     async clickBotonListaruscripcion() {
         await this.linkListarSuscripcion.click();
+    }
+
+    async clickBotonCrear() {
+        await this.BotonCrear.click();
+    }
+
+    async clickBotonCerrar () {
+        await this.BotonCerrar.click();
     }
 
 
@@ -41,4 +55,8 @@ export class suscripcionPage {
         await this.selectTipoSuscripcion.selectByValue(tipoSuscripcion);
     }
 
+    async contarSuscripcion() {
+        console.log(this.listaSuscripciones.count());
+        return this.listaSuscripciones.count();
+    }
 }
