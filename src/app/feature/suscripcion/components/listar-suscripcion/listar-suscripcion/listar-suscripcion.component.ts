@@ -26,6 +26,9 @@ export class ListarSuscripcionComponent implements OnInit {
   }
 
 
+  /*
+    Metodo encargado de listar la cantidad de suscripciones totales
+  */
   listarSuscripciones(){
     this.suscripcionService.consultar().subscribe((respuesta:Suscripcion[])=>
     {
@@ -35,6 +38,9 @@ export class ListarSuscripcionComponent implements OnInit {
     );
   }
 
+  /*
+    Metodo encargado de abrir modulo para guardar o actualizar suscripciones
+  */
   abrirModalDeCrear(datosSuscripcion:Suscripcion = null){
     const dialogRef = this.dialog.open(CrearSuscripcionComponent, {
       height: '500px',

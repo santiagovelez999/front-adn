@@ -8,6 +8,7 @@ import { SuscripcionInterface } from '@suscripcion/shared/model/suscripcionInter
 import { SuscripcionService } from '@suscripcion/shared/service/suscripcion.service';
 
 
+
 @Component({
   selector: 'app-crear-suscripcion',
   templateUrl: './crear-suscripcion.component.html',
@@ -25,15 +26,17 @@ export class CrearSuscripcionComponent implements OnInit {
   idSuscripcion: number = 0;
 
   titulosMensajes = {
-    correcto:{
-      titulo:"BIEN HECHO!",
-      icono:"mood"
+    correcto: {
+      titulo: "BIEN HECHO!",
+      icono: "mood"
     },
-    incorrecto:{
-      titulo:"UPSS!! HA OCURRIDO UN ERROR",
-      icono:"mood_bad"
+    incorrecto: {
+      titulo: "UPSS!! HA OCURRIDO UN ERROR",
+      icono: "mood_bad"
     }
   }
+
+  MENSAJE_ACTUALIZADO_CORRECTO:String = "Datos actualizados correctamente.";
 
   constructor(private formBuilder: FormBuilder,
     private miDatePipe: DatePipe,
@@ -51,6 +54,9 @@ export class CrearSuscripcionComponent implements OnInit {
     }
   }
 
+  /*
+    Metodo encargado de inicializar formulario
+  */
   iniciarFormulario() {
     this.formularioSuscripcion = this.formBuilder.group({
       idSuscripcion: new FormControl(""),
@@ -61,6 +67,9 @@ export class CrearSuscripcionComponent implements OnInit {
     });
   }
 
+  /*
+    Metodo encargado de cargar datos cuanto la opcion es actualizar
+  */
   precargarDatosEnFormulario() {
     this.idSuscripcion = this.datosSuscripcion.idSuscripcion;
     this.formularioSuscripcion.controls["idCliente"].setValue(this.datosSuscripcion.idCliente);
@@ -69,6 +78,9 @@ export class CrearSuscripcionComponent implements OnInit {
     this.formularioSuscripcion.controls["fechaRegistro"].setValue(this.transformarFechaEntrada(this.datosSuscripcion.fechaRegistro));
   }
 
+  /*
+    Metodo encargado de realizar la accion de actualizar o guardar
+  */
   accion() {
     if (this.idSuscripcion != 0) {
       this.actualizar();
@@ -77,54 +89,91 @@ export class CrearSuscripcionComponent implements OnInit {
     }
   }
 
+  /*
+    Metodo encargado de actualizar la información
+  */
   actualizar() {
     if (this.validarFormulario()) {
       this.formularioInvalido = false;
       let datosAEnviar: SuscripcionInterface = this.prepararDatosDeEnvio(this.idSuscripcion);
       this.suscripcionService.actualizar(datosAEnviar).subscribe(respuesta => {
-        console.log("datos insertados correctamente" + respuesta);
-        this.limpiarFormulario();
-        this.formularioInvalido = false;
+       console.log(respuesta);
+        this.mostrarMensajes(this.titulosMensajes.correcto.titulo,
+          this.titulosMensajes.correcto.icono,
+          this.MENSAJE_ACTUALIZADO_CORRECTO,
+          true);
+          this.limpiarFormulario();
+          this.formularioInvalido = false;
       }, error => {
-        console.log(error);
-      }
-      );
-    } else {
-      this.formularioInvalido = true;
-      this.limpiarFormulario();
-    }
-  } 
-
-  guardar() {
-    if (this.validarFormulario()) {
-      this.formularioInvalido = false;
-      let datosAEnviar: SuscripcionInterface = this.prepararDatosDeEnvio();
-      this.suscripcionService.guardar(datosAEnviar).subscribe(respuesta => {
-        console.log(respuesta);
-        this.mostrarMensajes(this.titulosMensajes.correcto.titulo, 
-                             this.titulosMensajes.correcto.icono, 
-                            "Fecha vencimiento suscripción: " + respuesta.valor.fechaDeVencimientoDeLaSuscripcion,
-                            true);
-        this.limpiarFormulario();
-        this.formularioInvalido = false;
-      }, error => {
-        console.log(error.error.mensaje);
-        this.mostrarMensajes(this.titulosMensajes.incorrecto.titulo, 
-                             this.titulosMensajes.incorrecto.icono, 
-                             error.error.mensaje,
-                             false);
-      }
-      );
+        this.mostrarMensajes(this.titulosMensajes.incorrecto.titulo,
+          this.titulosMensajes.incorrecto.icono,
+          error.error.mensaje,
+          false);
+      });
     } else {
       this.formularioInvalido = true;
       this.limpiarFormulario();
     }
   }
 
-  validarFormulario() {
+  /*
+    Metodo encargado de guardar la información
+  */
+  guardar() {
+    if (this.validarFormulario()) {
+      if (this.validarSoloNumeros()) {
+        this.formularioInvalido = false;
+        let datosAEnviar: SuscripcionInterface = this.prepararDatosDeEnvio();
+        this.suscripcionService.guardar(datosAEnviar).subscribe(respuesta => {
+          console.log(respuesta);
+          this.mostrarMensajes(this.titulosMensajes.correcto.titulo,
+            this.titulosMensajes.correcto.icono,
+            this.prepararMensajeGuardar(respuesta.valor),
+            true);
+          this.limpiarFormulario();
+          this.formularioInvalido = false;
+        }, error => {
+          console.log(error.error.mensaje);
+          this.mostrarMensajes(this.titulosMensajes.incorrecto.titulo,
+            this.titulosMensajes.incorrecto.icono,
+            error.error.mensaje,
+            false);
+        }
+        );
+      }
+    } else {
+      this.formularioInvalido = true;
+      this.limpiarFormulario();
+    }
+  }
+
+  /*
+    Metodo encargado de validar todos los campos del formulario
+  */
+  validarFormulario(): boolean {
     return this.formularioSuscripcion.valid;
   }
 
+  /*
+    Metodo encargado de validar si los campos numericos tienen caracteres especiales
+  */
+  validarSoloNumeros(): boolean {
+    let valoresAceptados = /^[0-9]+$/;
+    if (this.formularioSuscripcion.get("idCliente").value.match(valoresAceptados) == null ||
+      this.formularioSuscripcion.get("valorSuscripcion").value.match(valoresAceptados) == null) {
+      this.mostrarMensajes(this.titulosMensajes.incorrecto.titulo,
+        this.titulosMensajes.incorrecto.icono,
+        "Este formulario tiene errores, por favor valide la información suministrada.",
+        false);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  /*
+    Metodo encargado de preparar los datos a enviar
+  */
   prepararDatosDeEnvio(idSuscripcion: number = 0): SuscripcionInterface {
     let datosAEnviar: SuscripcionInterface = {
       idCliente: this.formularioSuscripcion.get("idCliente").value,
@@ -138,14 +187,32 @@ export class CrearSuscripcionComponent implements OnInit {
     return datosAEnviar;
   }
 
-  mostrarMensajes(tituloMensaje:String, iconoMensaje:String, contenidoMensaje:String, estadoMensaje:boolean){
+  /*
+    Metodo encargado de mostrar ventana con mensaje personalizado
+  */
+  mostrarMensajes(tituloMensaje: String, iconoMensaje: String, contenidoMensaje: String, estadoMensaje: boolean) {
     this.dialog.open(MensajesComponent, {
       height: '50%',
       width: '60%',
-      data: {titulo: tituloMensaje, icono: iconoMensaje, contenido:contenidoMensaje, estado:estadoMensaje}
+      data: {
+        titulo: tituloMensaje, icono: iconoMensaje,
+        contenido: contenidoMensaje, estado: estadoMensaje
+      }
     });
   }
 
+  /*
+    Metodo encargado de preparar el mensaje a mostrar, cuando la accion del guardar es correcta
+  */
+  prepararMensajeGuardar(mensaje: any) {
+    let salida: String = "Descuento: " + mensaje.descuento +
+      "  ||  Fecha vencimiento suscripción: " + mensaje.fechaDeVencimientoDeLaSuscripcion;
+    return salida;
+  }
+
+  /*
+      Metodo encargado de limpiar todo el formulario
+    */
   limpiarFormulario() {
     this.formularioSuscripcion.get("idSuscripcion").setValue("");
     this.formularioSuscripcion.get("idCliente").setValue("");
@@ -154,13 +221,19 @@ export class CrearSuscripcionComponent implements OnInit {
     this.formularioSuscripcion.get("fechaRegistro").setValue("");
   }
 
+  /*
+    Metodo encargado de transformar formato de fecha a enviar
+  */
   transformarFechaEnvio() {
     return this.miDatePipe.transform(this.formularioSuscripcion.
       get("fechaRegistro").value, 'yyyy-MM-dd HH:mm:ss');
   }
 
+  /*
+    Metodo encargado de transformar formato de fecha a mostrar en el actualizar
+  */
   transformarFechaEntrada(fecha: Date) {
-    return this.miDatePipe.transform(fecha, 'dd/MM/yyyy');
+    return new Date(fecha);
   }
 
 }
