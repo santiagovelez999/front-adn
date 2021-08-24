@@ -1,12 +1,23 @@
-.botones-crear {
-    margin: 10, 10, 10, 10;
+
+.agregar-ancho{
+    width: 100%;
 }
 
-.espacios{
-    margin-top: 10%;
-    margin-bottom: 10%;
-}
-
-.centrar{
+.alerta{
+    color: red;
+    font-size: 1em;
     text-align: center;
+    margin: 5px;
+    font-family: sans-serif;
+}
+
+.botones{
+    width: 100%;
+    margin: 5px;
+}
+
+.titulo{
+    margin-top: 5px;
+    margin-bottom: 45px;
+    font-weight: bold;
 }

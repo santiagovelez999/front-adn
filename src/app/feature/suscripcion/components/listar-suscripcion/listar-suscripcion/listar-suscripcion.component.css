@@ -1,21 +1,10 @@
-.contenedor {
-    max-width: 80%;
-  }
-
-.tabla-listar{
-    width: 80%;
-}
-
 .centrar{
-    margin: 0 auto;
+    text-align: center;
 }
 
-.barra-superior{
-    margin-bottom: 3%;
-}
-
-.espacio-contenedor{
-    margin-top: 5%;
+.ancho-contenedor{
+    min-width: 50%;
+    max-width: 100%;
 }
 
 .color-fecha{

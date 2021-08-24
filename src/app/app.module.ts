@@ -9,6 +9,8 @@ import { CoreModule } from '@core/core.module';
 import { CookieService } from 'ngx-cookie-service';
 import { SuscripcionModule } from '@suscripcion/suscripcion.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 
 
@@ -24,7 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProductoModule,
     SuscripcionModule,
     CoreModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FlexLayoutModule 
   ],
   providers: [CookieService],
     bootstrap: [AppComponent],
