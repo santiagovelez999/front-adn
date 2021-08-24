@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MensajesComponent } from '@shared/directivas/error-campos/componente/mensajes/mensajes/mensajes.component';
 import { Suscripcion } from '@suscripcion/shared/model/suscripcion';
 import { SuscripcionInterface } from '@suscripcion/shared/model/suscripcionInterface';
@@ -41,8 +41,9 @@ export class CrearSuscripcionComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private miDatePipe: DatePipe,
     private suscripcionService: SuscripcionService,
+    public dialogRef: MatDialogRef<CrearSuscripcionComponent>,
     @Inject(MAT_DIALOG_DATA) private datosSuscripcion: Suscripcion,
-    public dialog: MatDialog) { }
+    public dialogo: MatDialog) { }
 
   ngOnInit(): void {
     this.iniciarFormulario();
@@ -102,8 +103,7 @@ export class CrearSuscripcionComponent implements OnInit {
           this.titulosMensajes.correcto.icono,
           this.MENSAJE_ACTUALIZADO_CORRECTO,
           true);
-          this.limpiarFormulario();
-          this.formularioInvalido = false;
+          this. ocultarVentana();
       }, error => {
         this.mostrarMensajes(this.titulosMensajes.incorrecto.titulo,
           this.titulosMensajes.incorrecto.icono,
@@ -191,9 +191,9 @@ export class CrearSuscripcionComponent implements OnInit {
     Metodo encargado de mostrar ventana con mensaje personalizado
   */
   mostrarMensajes(tituloMensaje: String, iconoMensaje: String, contenidoMensaje: String, estadoMensaje: boolean) {
-    this.dialog.open(MensajesComponent, {
-      height: '50%',
-      width: '60%',
+    this.dialogo.open(MensajesComponent, {
+      height: '45%',
+      width: '50%',
       data: {
         titulo: tituloMensaje, icono: iconoMensaje,
         contenido: contenidoMensaje, estado: estadoMensaje
@@ -234,6 +234,13 @@ export class CrearSuscripcionComponent implements OnInit {
   */
   transformarFechaEntrada(fecha: Date) {
     return new Date(fecha);
+  }
+
+  /*
+    Metodo encargado de cerrar la modal
+  */
+  ocultarVentana(){
+    this.dialogRef.close();
   }
 
 }

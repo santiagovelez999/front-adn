@@ -16,12 +16,14 @@ export class ListarSuscripcionComponent implements OnInit {
   dataSource :Suscripcion[] = [];
   displayedColumns: string[] = ['idSuscripcion', 'idCliente', 'valorSuscripcion',
                                 'tipoSuscripcion', 'fechaRegistro', 'opcion'];
+  preloader:boolean = false;
 
   constructor(protected suscripcionService: SuscripcionService, public dialog: MatDialog) { 
     
   }
 
   ngOnInit(): void {
+    this.preloader = true;
     this.listarSuscripciones();
   }
 
@@ -30,11 +32,12 @@ export class ListarSuscripcionComponent implements OnInit {
     Metodo encargado de listar la cantidad de suscripciones totales
   */
   listarSuscripciones(){
-    this.suscripcionService.consultar().subscribe((respuesta:Suscripcion[])=>
-    {
-      this.dataSource  = respuesta;
-    }
+    this.suscripcionService.consultar().subscribe(async (respuesta:Suscripcion[])=>
+      {
+        this.dataSource  = await respuesta;
+      }
     );
+    this.preloader = false;
   }
 
   /*
