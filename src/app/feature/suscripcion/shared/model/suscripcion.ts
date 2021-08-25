@@ -1,13 +1,13 @@
 export class Suscripcion {
 
-     idSuscripcion: number;
-     idCliente: number;
-     valorSuscripcion: number;
-     tipoSuscripcion: String;
-     fechaRegistro: Date;
+    idSuscripcion: number;
+    idCliente: number;
+    valorSuscripcion: number;
+    tipoSuscripcion: string;
+    fechaRegistro: Date;
 
     constructor(idSuscripcion: number, idCliente: number, valorSuscripcion: number,
-        tipoSuscripcion: String, fechaRegistro: Date) {
+                tipoSuscripcion: string, fechaRegistro: Date) {
         this.idSuscripcion = idSuscripcion;
         this.idCliente = idCliente;
         this.valorSuscripcion = valorSuscripcion;

@@ -9,7 +9,7 @@ import { SuscripcionInterface } from '../model/suscripcionInterface';
 })
 export class SuscripcionService {
 
-  private nombreEntidad = "/suscripcion";
+  private nombreEntidad = '/suscripcion';
 
   constructor(protected http: HttpClient) {}
 

@@ -1,7 +1,8 @@
 export interface SuscripcionInterface {
-    idSuscripcion?:number,
+    idSuscripcion?: number;
     idCliente: number;
     valorSuscripcion: number;
-    tipoSuscripcion: String;
-    fechaRegistro: String;
-  }
+    tipoSuscripcion: string;
+    fechaRegistro: string;
+
+}

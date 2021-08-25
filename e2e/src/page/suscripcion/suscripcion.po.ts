@@ -1,22 +1,22 @@
-import { by, element } from "protractor";
+import { by, element } from 'protractor';
 
 
 export class SuscripcionPage {
 
-    //Linsk
+    // Linsk
     private linkCrearSuscripcion = element(by.id('linkCrearSuscripcion'));
     private linkListarSuscripcion = element(by.id('linkListarSuscripcion'));
 
-    //Campos de texto
+    // Campos de texto
     private inputIdCliente = element(by.id('idCliente'));
     private inputValorSuscripcion = element(by.id('valorSuscripcion'));
     private inputFechaRegistro = element(by.id('fechaRegistro'));
 
-    //Selectores
+    // Selectores
     private selectTipoSuscripcion = element(by.id('tipoSuscripcion'));
 
-    //Botones
-    private BotonCrear= element(by.id('botonCrearSuscripcion'));
+    // Botones
+    private BotonCrear = element(by.id('botonCrearSuscripcion'));
     private BotonCerrar = element(by.id('botonCerrarCrearSuscripcion'));
 
     async clickBotonCrearSuscripcion() {
@@ -31,10 +31,9 @@ export class SuscripcionPage {
         await this.BotonCrear.click();
     }
 
-    async clickBotonCerrar () {
+    async clickBotonCerrar() {
         await this.BotonCerrar.click();
     }
-
 
     async ingresarIdCliente(idCliente) {
         await this.inputIdCliente.sendKeys(idCliente);
@@ -51,5 +50,4 @@ export class SuscripcionPage {
     async seleccionarTipoSuscripcion(tipoSuscripcion) {
         await this.selectTipoSuscripcion.selectByValue(tipoSuscripcion);
     }
-
 }

@@ -1,7 +1,6 @@
-import { AppPage } from "../app.po";
-import { NavbarPage } from "../page/navbar/navbar.po";
-import { SuscripcionPage } from "../page/suscripcion/suscripcion.po";
-
+import { AppPage } from '../app.po';
+import { NavbarPage } from '../page/navbar/navbar.po';
+import { SuscripcionPage } from '../page/suscripcion/suscripcion.po';
 
 describe('workspace-project Suscripcion', () => {
     let page: AppPage;

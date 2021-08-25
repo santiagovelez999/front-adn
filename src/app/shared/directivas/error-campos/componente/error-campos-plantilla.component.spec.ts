@@ -6,7 +6,7 @@ describe('ErrorCamposPlantillaComponent', () => {
   let component: ErrorCamposPlantillaComponent;
   let fixture: ComponentFixture<ErrorCamposPlantillaComponent>;
 
-  beforeEach(async(() => {
+  beforeEach((() => {
     TestBed.configureTestingModule({
       declarations: [ ErrorCamposPlantillaComponent ]
     })

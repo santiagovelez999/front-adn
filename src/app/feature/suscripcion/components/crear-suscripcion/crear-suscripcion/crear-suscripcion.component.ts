@@ -20,30 +20,31 @@ export class CrearSuscripcionComponent implements OnInit {
   formularioSuscripcion: FormGroup;
   formularioInvalido: boolean = false;
   cerrar: boolean = true;
-  titulo: String = null;
-  subTituloCrear: String = "Crear";
-  subTituloEditar: String = "Editar";
+  titulo: string = null;
+  subTituloCrear: string = 'Crear';
+  subTituloEditar: string = 'Editar';
   idSuscripcion: number = 0;
 
   titulosMensajes = {
     correcto: {
-      titulo: "BIEN HECHO!",
-      icono: "mood"
+      titulo: 'BIEN HECHO!',
+      icono: 'mood'
     },
     incorrecto: {
-      titulo: "UPSS!! HA OCURRIDO UN ERROR",
-      icono: "mood_bad"
+      titulo: 'UPSS!! HA OCURRIDO UN ERROR',
+      icono: 'mood_bad'
     }
-  }
+  };
 
-  MENSAJE_ACTUALIZADO_CORRECTO:String = "Datos actualizados correctamente.";
+  MENSAJE_ACTUALIZADO_CORRECTO: string = 'Datos actualizados correctamente.';
 
   constructor(private formBuilder: FormBuilder,
-    private miDatePipe: DatePipe,
-    private suscripcionService: SuscripcionService,
-    public dialogRef: MatDialogRef<CrearSuscripcionComponent>,
-    @Inject(MAT_DIALOG_DATA) private datosSuscripcion: Suscripcion,
-    public dialogo: MatDialog) { }
+              private miDatePipe: DatePipe,
+              private suscripcionService: SuscripcionService,
+              public dialogRef: MatDialogRef<CrearSuscripcionComponent>,
+              @Inject(MAT_DIALOG_DATA) private datosSuscripcion: Suscripcion,
+              public dialogo: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.iniciarFormulario();
@@ -55,60 +56,54 @@ export class CrearSuscripcionComponent implements OnInit {
     }
   }
 
-  /*
-    Metodo encargado de inicializar formulario
-  */
+  // Metodo encargado de inicializar formulario
   iniciarFormulario() {
     this.formularioSuscripcion = this.formBuilder.group({
-      idSuscripcion: new FormControl(""),
-      idCliente: new FormControl("", Validators.required),
-      valorSuscripcion: new FormControl("", Validators.required),
-      tipoSuscripcion: new FormControl("", Validators.required),
-      fechaRegistro: new FormControl("", Validators.required)
+      idSuscripcion: new FormControl(''),
+      idCliente: new FormControl('', Validators.required),
+      valorSuscripcion: new FormControl('', Validators.required),
+      tipoSuscripcion: new FormControl('', Validators.required),
+      fechaRegistro: new FormControl('', Validators.required)
     });
   }
 
-  /*
-    Metodo encargado de cargar datos cuanto la opcion es actualizar
-  */
+  // Metodo encargado de cargar datos cuanto la opcion es actualizar
   precargarDatosEnFormulario() {
     this.idSuscripcion = this.datosSuscripcion.idSuscripcion;
-    this.formularioSuscripcion.controls["idCliente"].setValue(this.datosSuscripcion.idCliente);
-    this.formularioSuscripcion.controls["valorSuscripcion"].setValue(this.datosSuscripcion.valorSuscripcion);
-    this.formularioSuscripcion.controls["tipoSuscripcion"].setValue(this.datosSuscripcion.tipoSuscripcion);
-    this.formularioSuscripcion.controls["fechaRegistro"].setValue(this.transformarFechaEntrada(this.datosSuscripcion.fechaRegistro));
+    this.formularioSuscripcion.get('idCliente').setValue(this.datosSuscripcion.idCliente);
+    this.formularioSuscripcion.get('valorSuscripcion').setValue(this.datosSuscripcion.valorSuscripcion);
+    this.formularioSuscripcion.get('tipoSuscripcion').setValue(this.datosSuscripcion.tipoSuscripcion);
+    this.formularioSuscripcion.get('fechaRegistro').setValue(this.transformarFechaEntrada(this.datosSuscripcion.fechaRegistro));
   }
 
-  /*
-    Metodo encargado de realizar la accion de actualizar o guardar
-  */
+  // Metodo encargado de realizar la accion de actualizar o guardar
   accion() {
-    if (this.idSuscripcion != 0) {
+    if (this.idSuscripcion !== 0) {
       this.actualizar();
     } else {
       this.guardar();
     }
   }
 
-  /*
-    Metodo encargado de actualizar la información
-  */
+  // Metodo encargado de actualizar la información
   actualizar() {
     if (this.validarFormulario()) {
       this.formularioInvalido = false;
-      let datosAEnviar: SuscripcionInterface = this.prepararDatosDeEnvio(this.idSuscripcion);
+      const datosAEnviar: SuscripcionInterface = this.prepararDatosDeEnvio(this.idSuscripcion);
       this.suscripcionService.actualizar(datosAEnviar).subscribe(respuesta => {
-       console.log(respuesta);
-        this.mostrarMensajes(this.titulosMensajes.correcto.titulo,
-          this.titulosMensajes.correcto.icono,
-          this.MENSAJE_ACTUALIZADO_CORRECTO,
-          true);
+          console.log(respuesta);
+          this.mostrarMensajes(this.titulosMensajes.correcto.titulo,
+                             this.titulosMensajes.correcto.icono,
+                             this.MENSAJE_ACTUALIZADO_CORRECTO,
+                             true
+          );
           this. ocultarVentana();
       }, error => {
-        this.mostrarMensajes(this.titulosMensajes.incorrecto.titulo,
-          this.titulosMensajes.incorrecto.icono,
-          error.error.mensaje,
-          false);
+          this.mostrarMensajes(this.titulosMensajes.incorrecto.titulo,
+                               this.titulosMensajes.incorrecto.icono,
+                               error.error.mensaje,
+                               false
+          );
       });
     } else {
       this.formularioInvalido = true;
@@ -116,14 +111,12 @@ export class CrearSuscripcionComponent implements OnInit {
     }
   }
 
-  /*
-    Metodo encargado de guardar la información
-  */
+  // Metodo encargado de guardar la información
   guardar() {
     if (this.validarFormulario()) {
       if (this.validarSoloNumeros()) {
         this.formularioInvalido = false;
-        let datosAEnviar: SuscripcionInterface = this.prepararDatosDeEnvio();
+        const datosAEnviar: SuscripcionInterface = this.prepararDatosDeEnvio();
         this.suscripcionService.guardar(datosAEnviar).subscribe(respuesta => {
           console.log(respuesta);
           this.mostrarMensajes(this.titulosMensajes.correcto.titulo,
@@ -147,23 +140,19 @@ export class CrearSuscripcionComponent implements OnInit {
     }
   }
 
-  /*
-    Metodo encargado de validar todos los campos del formulario
-  */
+  // Metodo encargado de validar todos los campos del formulario
   validarFormulario(): boolean {
     return this.formularioSuscripcion.valid;
   }
 
-  /*
-    Metodo encargado de validar si los campos numericos tienen caracteres especiales
-  */
+  // Metodo encargado de validar si los campos numericos tienen caracteres especiales
   validarSoloNumeros(): boolean {
-    let valoresAceptados = /^[0-9]+$/;
-    if (this.formularioSuscripcion.get("idCliente").value.match(valoresAceptados) == null ||
-      this.formularioSuscripcion.get("valorSuscripcion").value.match(valoresAceptados) == null) {
+    const valoresAceptados = /^[0-9]+$/;
+    if (this.formularioSuscripcion.get('idCliente').value.match(valoresAceptados) == null ||
+      this.formularioSuscripcion.get('valorSuscripcion').value.match(valoresAceptados) == null) {
       this.mostrarMensajes(this.titulosMensajes.incorrecto.titulo,
         this.titulosMensajes.incorrecto.icono,
-        "Este formulario tiene errores, por favor valide la información suministrada.",
+        'Este formulario tiene errores, por favor valide la información suministrada.',
         false);
       return false;
     } else {
@@ -171,26 +160,22 @@ export class CrearSuscripcionComponent implements OnInit {
     }
   }
 
-  /*
-    Metodo encargado de preparar los datos a enviar
-  */
+  // Metodo encargado de preparar los datos a enviar
   prepararDatosDeEnvio(idSuscripcion: number = 0): SuscripcionInterface {
-    let datosAEnviar: SuscripcionInterface = {
-      idCliente: this.formularioSuscripcion.get("idCliente").value,
-      valorSuscripcion: this.formularioSuscripcion.get("valorSuscripcion").value,
-      tipoSuscripcion: this.formularioSuscripcion.get("tipoSuscripcion").value,
-      fechaRegistro: this.transformarFechaEnvio()
-    }
-    if (idSuscripcion != 0) {
-      datosAEnviar.idSuscripcion = this.idSuscripcion;
+    const datosAEnviar: SuscripcionInterface = {
+        idCliente: this.formularioSuscripcion.get('idCliente').value,
+        valorSuscripcion: this.formularioSuscripcion.get('valorSuscripcion').value,
+        tipoSuscripcion: this.formularioSuscripcion.get('tipoSuscripcion').value,
+        fechaRegistro: this.transformarFechaEnvio()
+    };
+    if (idSuscripcion !== 0) {
+        datosAEnviar.idSuscripcion = this.idSuscripcion;
     }
     return datosAEnviar;
   }
 
-  /*
-    Metodo encargado de mostrar ventana con mensaje personalizado
-  */
-  mostrarMensajes(tituloMensaje: String, iconoMensaje: String, contenidoMensaje: String, estadoMensaje: boolean) {
+  // Metodo encargado de mostrar ventana con mensaje personalizado
+  mostrarMensajes(tituloMensaje: string, iconoMensaje: string, contenidoMensaje: string, estadoMensaje: boolean) {
     this.dialogo.open(MensajesComponent, {
       height: '45%',
       width: '50%',
@@ -201,44 +186,35 @@ export class CrearSuscripcionComponent implements OnInit {
     });
   }
 
-  /*
-    Metodo encargado de preparar el mensaje a mostrar, cuando la accion del guardar es correcta
-  */
+  // Metodo encargado de preparar el mensaje a mostrar, cuando la accion del guardar es correcta
   prepararMensajeGuardar(mensaje: any) {
-    let salida: String = "Descuento: " + mensaje.descuento +
-      "  ||  Fecha vencimiento suscripción: " + mensaje.fechaDeVencimientoDeLaSuscripcion;
+    const salida: string = 'Descuento: ' + mensaje.descuento +
+                           '  ||  Fecha vencimiento suscripción: ' +
+                           mensaje.fechaDeVencimientoDeLaSuscripcion;
     return salida;
   }
 
-  /*
-      Metodo encargado de limpiar todo el formulario
-    */
+  // Metodo encargado de limpiar todo el formulario
   limpiarFormulario() {
-    this.formularioSuscripcion.get("idSuscripcion").setValue("");
-    this.formularioSuscripcion.get("idCliente").setValue("");
-    this.formularioSuscripcion.get("valorSuscripcion").setValue("");
-    this.formularioSuscripcion.get("tipoSuscripcion").setValue("");
-    this.formularioSuscripcion.get("fechaRegistro").setValue("");
+    this.formularioSuscripcion.get('idSuscripcion').setValue('');
+    this.formularioSuscripcion.get('idCliente').setValue('');
+    this.formularioSuscripcion.get('valorSuscripcion').setValue('');
+    this.formularioSuscripcion.get('tipoSuscripcion').setValue('');
+    this.formularioSuscripcion.get('fechaRegistro').setValue('');
   }
 
-  /*
-    Metodo encargado de transformar formato de fecha a enviar
-  */
+  // Metodo encargado de transformar formato de fecha a enviar
   transformarFechaEnvio() {
     return this.miDatePipe.transform(this.formularioSuscripcion.
-      get("fechaRegistro").value, 'yyyy-MM-dd HH:mm:ss');
+      get('fechaRegistro').value, 'yyyy-MM-dd HH:mm:ss');
   }
 
-  /*
-    Metodo encargado de transformar formato de fecha a mostrar en el actualizar
-  */
+  // Metodo encargado de transformar formato de fecha a mostrar en el actualizar
   transformarFechaEntrada(fecha: Date) {
     return new Date(fecha);
   }
 
-  /*
-    Metodo encargado de cerrar la modal
-  */
+  // Metodo encargado de cerrar la modal
   ocultarVentana(){
     this.dialogRef.close();
   }

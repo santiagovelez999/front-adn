@@ -14,7 +14,9 @@ describe('ListarSuscripcionComponent', () => {
   let fixture: ComponentFixture<ListarSuscripcionComponent>;
   let suscripcionService: SuscripcionService;
 
-  const listaSuscripciones: Suscripcion[] = [new Suscripcion(1,1,70000,'XXX' , new Date()), new Suscripcion(2,2,40000,'XV' , new Date())];
+  const listaSuscripciones: Suscripcion[] = [new Suscripcion(1 , 1 , 70000 , 'XXX' , new Date()),
+                                             new Suscripcion(2 , 2 , 40000 , 'XV' , new Date())
+  ];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

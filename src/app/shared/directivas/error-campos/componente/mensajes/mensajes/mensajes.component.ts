@@ -8,19 +8,18 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class MensajesComponent implements OnInit {
 
-  titulo:String = "";
-  icono:String = "";
-  contenido:String = "";
-  estado:boolean = true;
+  titulo: string = '';
+  icono: string = '';
+  contenido: string = '';
+  estado: boolean = true;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private datosMensaje: any) { }
+  constructor(@Inject(MAT_DIALOG_DATA) private datosMensaje: any){}
 
-  ngOnInit(): void {
+  ngOnInit(): void{
     this.titulo = this.datosMensaje.titulo;
     this.icono = this.datosMensaje.icono;
     this.contenido = this.datosMensaje.contenido;
     this.estado = this.datosMensaje.estado;
     console.log(this.datosMensaje);
   }
-
 }

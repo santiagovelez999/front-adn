@@ -19,14 +19,12 @@ export class ListarSuscripcionComponent implements OnInit {
   dataSource: MatTableDataSource<Suscripcion>;
   displayedColumns: string[] = ['idSuscripcion', 'idCliente', 'valorSuscripcion',
                                 'tipoSuscripcion', 'fechaRegistro', 'opcion'];
-  preloader:boolean = false;
+  preloader: boolean = false;
 
   @ViewChild(MatPaginator) paginador: MatPaginator;
   @ViewChild(MatSort) ordenar: MatSort;
 
-  constructor(protected suscripcionService: SuscripcionService, public dialog: MatDialog) { 
-    
-  }
+  constructor(protected suscripcionService: SuscripcionService, public dialog: MatDialog){}
 
   ngOnInit(): void {
     this.preloader = true;
@@ -38,7 +36,7 @@ export class ListarSuscripcionComponent implements OnInit {
     Metodo encargado de listar la cantidad de suscripciones totales
   */
   listarSuscripciones(){
-    this.suscripcionService.consultar().subscribe(async (respuesta:Suscripcion[])=>
+    this.suscripcionService.consultar().subscribe(async (respuesta: Suscripcion[]) =>
       {
         this.dataSource = new MatTableDataSource(await respuesta);
         this.dataSource.paginator = this.paginador;
@@ -51,14 +49,14 @@ export class ListarSuscripcionComponent implements OnInit {
   /*
     Metodo encargado de abrir modulo para guardar o actualizar suscripciones
   */
-  abrirModalDeCrear(datosSuscripcion:Suscripcion = null){
+  abrirModalDeCrear(datosSuscripcion: Suscripcion = null){
     const dialogRef = this.dialog.open(CrearSuscripcionComponent, {
-      height: '500px',
-      width: '350px',
-      data:datosSuscripcion
+      height: '500px' ,
+      width: '350px' ,
+      data: datosSuscripcion
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.listarSuscripciones();
       }
     });

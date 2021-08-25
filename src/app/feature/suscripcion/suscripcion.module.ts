@@ -30,9 +30,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
   imports: [
     SuscripcionRoutingModule,
     SharedModule,
-
-    //ANGULAR MATERIAL//
-    
+    // ANGULAR MATERIAL
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -46,10 +44,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatProgressBarModule,
     MatPaginatorModule,
     MatSortModule,
-
-    //Flex-Layout
+    // Flex-Layout
     FlexLayoutModule
-
   ],
   providers: [SuscripcionService, MatDatepickerModule]
 })
