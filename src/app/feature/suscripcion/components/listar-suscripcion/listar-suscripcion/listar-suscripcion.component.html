@@ -1,4 +1,6 @@
-<mat-spinner *ngIf="preloader"></mat-spinner>
+<div *ngIf="preloader">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
 <div id="contenedorListarSuscripcion">
     <mat-card>
         <mat-card-header>

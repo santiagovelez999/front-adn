@@ -29,14 +29,5 @@ describe('workspace-project Suscripcion', () => {
         suscripcion.seleccionarTipoSuscripcion(TIPO_SUSCRIPCION);
         suscripcion.ingresarFechaRegistro(FECHA_REGISTRO);
         suscripcion.clickBotonCrear();
-        suscripcion.clickBotonCerrar();
     });
-
-    it('Deberia listar suscripcion', () => {
-        page.navigateTo();
-        navBar.clickBotonSuscripcion();
-        suscripcion.clickBotonListaruscripcion();
-        expect(6).toBe(suscripcion.contarSuscripcion());
-    });
-
 });

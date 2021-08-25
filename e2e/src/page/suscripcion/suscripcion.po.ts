@@ -15,9 +15,6 @@ export class SuscripcionPage {
     //Selectores
     private selectTipoSuscripcion = element(by.id('tipoSuscripcion'));
 
-    //Tabla
-    private listaSuscripciones = element.all(by.css('#tablaListarSuscripcion > thead > tr > th.mat-header-cell.cdk-header-cell'));
-
     //Botones
     private BotonCrear= element(by.id('botonCrearSuscripcion'));
     private BotonCerrar = element(by.id('botonCerrarCrearSuscripcion'));
@@ -55,8 +52,4 @@ export class SuscripcionPage {
         await this.selectTipoSuscripcion.selectByValue(tipoSuscripcion);
     }
 
-    async contarSuscripcion() {
-        console.log(this.listaSuscripciones.count());
-        return this.listaSuscripciones.count();
-    }
 }

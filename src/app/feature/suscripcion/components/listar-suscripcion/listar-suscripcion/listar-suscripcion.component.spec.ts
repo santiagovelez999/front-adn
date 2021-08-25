@@ -1,4 +1,8 @@
+
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { Suscripcion } from '@suscripcion/shared/model/suscripcion';
 import { SuscripcionService } from '@suscripcion/shared/service/suscripcion.service';
 import { of } from 'rxjs';
@@ -14,7 +18,11 @@ describe('ListarSuscripcionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListarSuscripcionComponent ]
+      declarations: [ ListarSuscripcionComponent ],
+      imports: [
+        HttpClientTestingModule
+      ],
+      providers: [SuscripcionService, HttpClient]
     })
     .compileComponents();
   });
@@ -31,6 +39,6 @@ describe('ListarSuscripcionComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     component.listarSuscripciones();
-    expect(2).toBe(component.dataSource .length);
+    expect(2).toBe(component.dataSource.data.length);
   });
 });
