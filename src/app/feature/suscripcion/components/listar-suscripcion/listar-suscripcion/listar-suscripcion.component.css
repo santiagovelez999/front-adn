@@ -1,22 +1,25 @@
-.centrar{
+mat-card-subtitle {
+    margin-top: 30px;
+}
+
+table th {
     text-align: center;
+    padding: 5px;
+    word-wrap:break-word;
 }
 
-.ancho-contenedor{
-    min-width: 30em;
-    max-width: 55em;
-    width: 55em;
+table td{
+   text-align: center;
+   word-wrap:break-word;
 }
 
-.tabla{
+#contenedorListarSuscripcion{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.mat-form-field {
+    font-size: 14px;
     width: 100%;
-    text-align: center;
-}
+  }
 
-.color-fecha{
-    border: 1px solid #2E4053;
-    border-radius: 1%;
-    background-color: #2C3E50;
-    padding: 5%;
-    color: white;
-}
