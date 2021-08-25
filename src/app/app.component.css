@@ -4,3 +4,7 @@
     flex-flow: column;
   }
 
+  app-toolbar{
+    width: 100%;
+  }
+

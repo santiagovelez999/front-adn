@@ -17,7 +17,7 @@
                     <input matInput (keyup)="aplicarFiltro($event)" placeholder="Buscar..." id="busquedaSuscripcion">
                 </mat-form-field>
             </div>
-            <div style="overflow: hidden;">
+            <div id="contenedorTabla">
                 <table mat-table [dataSource]="dataSource " class="mat-elevation-z8" id="tablaListarSuscripcion"
                     matSort>
                     <ng-container matColumnDef="idSuscripcion">
