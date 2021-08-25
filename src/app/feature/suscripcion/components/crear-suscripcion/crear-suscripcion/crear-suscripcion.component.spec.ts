@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SuscripcionService } from '@suscripcion/shared/service/suscripcion.service';
 import { of } from 'rxjs';
@@ -22,9 +25,14 @@ describe('CrearSuscripcionComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientTestingModule
+        HttpClientTestingModule, 
+        MatTableModule, 
+        MatDialogModule, 
+        RouterModule.forRoot([])
       ],
-      providers: [SuscripcionService, HttpClient],
+      providers: [SuscripcionService, HttpClient,
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} } ],
     })
     .compileComponents();
   });
@@ -39,11 +47,11 @@ describe('CrearSuscripcionComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Validar creación de component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('formulario es invalido cuando esta vacio', () => {
+  it('Formulario es invalido cuando esta vacio', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
   });
 

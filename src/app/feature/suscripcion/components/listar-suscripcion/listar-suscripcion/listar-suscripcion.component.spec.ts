@@ -2,7 +2,10 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
 import { Suscripcion } from '@suscripcion/shared/model/suscripcion';
 import { SuscripcionService } from '@suscripcion/shared/service/suscripcion.service';
 import { of } from 'rxjs';
@@ -22,9 +25,16 @@ describe('ListarSuscripcionComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ListarSuscripcionComponent ],
       imports: [
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        FormsModule, 
+        ReactiveFormsModule , 
+        MatTableModule, 
+        MatDialogModule, 
+        RouterModule.forRoot([])
       ],
-      providers: [SuscripcionService, HttpClient]
+      providers: [SuscripcionService, HttpClient,  
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} }  ]
     })
     .compileComponents();
   });
@@ -38,8 +48,11 @@ describe('ListarSuscripcionComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Validar creación de component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Listar', () => {
     component.listarSuscripciones();
     expect(2).toBe(component.dataSource.data.length);
   });
