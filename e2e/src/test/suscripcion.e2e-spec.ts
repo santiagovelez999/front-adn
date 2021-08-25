@@ -29,4 +29,15 @@ describe('workspace-project Suscripcion', () => {
         suscripcion.ingresarFechaRegistro(FECHA_REGISTRO);
         suscripcion.clickBotonCrear();
     });
+
+    it('Deberia actualizar', () => {
+        const FECHA_REGISTRO = new Date();
+
+        page.navigateTo();
+        navBar.clickBotonSuscripcion();
+        suscripcion.clickBotonListaruscripcion();
+        suscripcion.clickBotonActualizarSuscripcion();
+        suscripcion.ingresarFechaRegistro(FECHA_REGISTRO);
+        suscripcion.clickBotonCrear();
+    });
 });

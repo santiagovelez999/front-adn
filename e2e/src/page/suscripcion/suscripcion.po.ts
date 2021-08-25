@@ -5,6 +5,7 @@ export class SuscripcionPage {
 
     // Linsk
     private linkCrearSuscripcion = element(by.id('linkCrearSuscripcion'));
+    private linkActualizarSuscripcion = element(by.id('linkActualizarSuscripcion'));
     private linkListarSuscripcion = element(by.id('linkListarSuscripcion'));
 
     // Campos de texto
@@ -21,6 +22,10 @@ export class SuscripcionPage {
 
     async clickBotonCrearSuscripcion() {
         await this.linkCrearSuscripcion.click();
+    }
+
+    async clickBotonActualizarSuscripcion() {
+        await this.linkActualizarSuscripcion.click();
     }
 
     async clickBotonListaruscripcion() {
