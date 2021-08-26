@@ -16,20 +16,29 @@ describe('CrearSuscripcionComponent', () => {
   let component: CrearSuscripcionComponent;
   let fixture: ComponentFixture<CrearSuscripcionComponent>;
   let suscripcionServiceSpy: jasmine.SpyObj<SuscripcionService>;
+  
+  const FECHA_ENVIO = '2021-08-12 00:00:00';
+
+  const respuesta = {
+    valor: {
+      descuento: '$0',
+      fechaDeVencimientoDeLaSuscripcion: '27/08/2021'
+    }
+  };
 
   beforeEach(async () => {
-    suscripcionServiceSpy = jasmine.createSpyObj('SuscripcionService',['guardar']);
+    suscripcionServiceSpy = jasmine.createSpyObj('SuscripcionService', ['guardar']);
     suscripcionServiceSpy.guardar.and.returnValue(
-      of({ valor: "1"})
+      of(respuesta)
     );
     await TestBed.configureTestingModule({
-      declarations: [ CrearSuscripcionComponent ],
+      declarations: [CrearSuscripcionComponent],
       imports: [
         CommonModule,
         RouterTestingModule,
         ReactiveFormsModule,
-        MatTableModule, 
-        MatDialogModule, 
+        MatTableModule,
+        MatDialogModule,
         RouterModule.forRoot([]),
         SuscripcionModule,
         AppModule
@@ -39,7 +48,7 @@ describe('CrearSuscripcionComponent', () => {
         { provide: MatDialogRef, useValue: {} },
         { provide: SuscripcionService, useValue: suscripcionServiceSpy }],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -60,16 +69,11 @@ describe('CrearSuscripcionComponent', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
     component.formularioSuscripcion.controls.idSuscripcion.setValue('1');
     component.formularioSuscripcion.controls.idCliente.setValue('1');
-    component.formularioSuscripcion.controls.valorSuscripcion.setValue('70000');
-    component.formularioSuscripcion.controls.tipoSuscripcion.setValue('XXX');
-    component.formularioSuscripcion.controls.fechaRegistro.setValue(new Date());
+    component.formularioSuscripcion.controls.valorSuscripcion.setValue('40000');
+    component.formularioSuscripcion.controls.tipoSuscripcion.setValue('XV');
+    component.formularioSuscripcion.controls.fechaRegistro.setValue(new Date(FECHA_ENVIO));
     expect(component.formularioSuscripcion.valid).toBeTruthy();
-
     component.guardar();
-
-    // Aca validamos el resultado esperado al enviar la petición
-    // TODO adicionar expect
+    expect(component.formularioInvalido).toBeFalse();
   });
-
-
 });
