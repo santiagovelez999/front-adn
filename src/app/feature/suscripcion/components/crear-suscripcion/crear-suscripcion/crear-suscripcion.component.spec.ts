@@ -26,9 +26,12 @@ describe('CrearSuscripcionComponent', () => {
   };
 
   beforeEach(async () => {
-    suscripcionServiceSpy = jasmine.createSpyObj('SuscripcionService', ['guardar']);
+    suscripcionServiceSpy = jasmine.createSpyObj('SuscripcionService', ['guardar', 'actualizar']);
     suscripcionServiceSpy.guardar.and.returnValue(
       of(respuesta)
+    );
+    suscripcionServiceSpy.actualizar.and.returnValue(
+      of(true)
     );
     await TestBed.configureTestingModule({
       declarations: [CrearSuscripcionComponent],
@@ -64,7 +67,7 @@ describe('CrearSuscripcionComponent', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
   });
 
-  fit('Registrando producto', () => {
+  fit('Registrando Suscripción', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
     component.formularioSuscripcion.controls.idSuscripcion.setValue('1');
     component.formularioSuscripcion.controls.idCliente.setValue('1');
@@ -73,6 +76,19 @@ describe('CrearSuscripcionComponent', () => {
     component.formularioSuscripcion.controls.fechaRegistro.setValue(new Date(FECHA_ENVIO));
     expect(component.formularioSuscripcion.valid).toBeTruthy();
     component.guardar();
+    expect(component.formularioInvalido).toBeFalse();
+  });
+
+  fit('Actualizar Suscripción', () => {
+    expect(component.formularioSuscripcion.valid).toBeFalsy();
+    component.idSuscripcion = 1;
+    component.formularioSuscripcion.controls.idSuscripcion.setValue('2');
+    component.formularioSuscripcion.controls.idCliente.setValue('2');
+    component.formularioSuscripcion.controls.valorSuscripcion.setValue('40000');
+    component.formularioSuscripcion.controls.tipoSuscripcion.setValue('XV');
+    component.formularioSuscripcion.controls.fechaRegistro.setValue(new Date(FECHA_ENVIO));
+    expect(component.formularioSuscripcion.valid).toBeTruthy();
+    component.actualizar();
     expect(component.formularioInvalido).toBeFalse();
   });
 });

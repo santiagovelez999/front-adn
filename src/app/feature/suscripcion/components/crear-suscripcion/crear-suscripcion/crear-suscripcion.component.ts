@@ -92,6 +92,7 @@ export class CrearSuscripcionComponent implements OnInit {
       const datosAEnviar: SuscripcionInterface = this.prepararDatosDeEnvio(this.idSuscripcion);
       this.suscripcionService.actualizar(datosAEnviar).subscribe(respuesta => {
           console.log(respuesta);
+          this.formularioInvalido = false;
           this.mostrarMensajes(this.titulosMensajes.correcto.titulo,
                              this.titulosMensajes.correcto.icono,
                              this.MENSAJE_ACTUALIZADO_CORRECTO,
