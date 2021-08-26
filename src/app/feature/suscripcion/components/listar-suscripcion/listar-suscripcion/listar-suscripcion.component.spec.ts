@@ -1,7 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
@@ -17,16 +15,22 @@ import { ListarSuscripcionComponent } from './listar-suscripcion.component';
 describe('ListarSuscripcionComponent', () => {
   let component: ListarSuscripcionComponent;
   let fixture: ComponentFixture<ListarSuscripcionComponent>;
-
+  let suscripcionServiceSpy: jasmine.SpyObj<SuscripcionService>;
   const listaSuscripciones: Suscripcion[] = [new Suscripcion(1 , 1 , 70000 , 'XXX' , new Date()),
                                              new Suscripcion(2 , 2 , 40000 , 'XV' , new Date())
   ];
 
   beforeEach(async () => {
+    suscripcionServiceSpy = jasmine.createSpyObj('SuscripcionService', [
+      'consultar',
+    ]);
+    suscripcionServiceSpy.consultar.and.returnValue(
+      of(listaSuscripciones)
+    );
+
     await TestBed.configureTestingModule({
       declarations: [ ListarSuscripcionComponent ],
       imports: [
-        HttpClientTestingModule,
         FormsModule, 
         ReactiveFormsModule , 
         MatTableModule, 
@@ -35,20 +39,18 @@ describe('ListarSuscripcionComponent', () => {
         SuscripcionModule,
         AppModule
       ],
-      providers: [SuscripcionService, HttpClient,  
+      providers: [ 
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} }  ]
+        { provide: MatDialogRef, useValue: {} },
+        { provide: SuscripcionService, useValue: suscripcionServiceSpy }
+      ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    let suscripcionService = TestBed.inject(SuscripcionService);
     fixture = TestBed.createComponent(ListarSuscripcionComponent);
     component = fixture.componentInstance;
-    spyOn(suscripcionService, 'consultar').and.returnValue(
-      of(listaSuscripciones)
-    );
     fixture.detectChanges();
   });
 
@@ -56,8 +58,10 @@ describe('ListarSuscripcionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Listar', () => {
+  it('Listar', fakeAsync(() => {
     component.listarSuscripciones();
+    tick();
+    fixture.detectChanges();
     expect(2).toBe(component.dataSource.data.length);
-  });
+  }));
 });
