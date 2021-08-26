@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
@@ -17,38 +15,36 @@ import { CrearSuscripcionComponent } from './crear-suscripcion.component';
 describe('CrearSuscripcionComponent', () => {
   let component: CrearSuscripcionComponent;
   let fixture: ComponentFixture<CrearSuscripcionComponent>;
- 
+  let suscripcionServiceSpy: jasmine.SpyObj<SuscripcionService>;
 
   beforeEach(async () => {
+    suscripcionServiceSpy = jasmine.createSpyObj('SuscripcionService',['guardar']);
+    suscripcionServiceSpy.guardar.and.returnValue(
+      of({ valor: "1"})
+    );
     await TestBed.configureTestingModule({
       declarations: [ CrearSuscripcionComponent ],
       imports: [
         CommonModule,
         RouterTestingModule,
         ReactiveFormsModule,
-        FormsModule,
-        HttpClientTestingModule, 
         MatTableModule, 
         MatDialogModule, 
         RouterModule.forRoot([]),
         SuscripcionModule,
         AppModule
       ],
-      providers: [SuscripcionService, HttpClient,
+      providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} } ],
+        { provide: MatDialogRef, useValue: {} },
+        { provide: SuscripcionService, useValue: suscripcionServiceSpy }],
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    let suscripcionService = TestBed.inject(SuscripcionService);
     fixture = TestBed.createComponent(CrearSuscripcionComponent);
     component = fixture.componentInstance;
-    suscripcionService = TestBed.inject(SuscripcionService);
-    spyOn(suscripcionService, 'guardar').and.returnValue(
-      of(true)
-    );
     fixture.detectChanges();
   });
 
@@ -60,7 +56,7 @@ describe('CrearSuscripcionComponent', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
   });
 
-  it('Registrando producto', () => {
+  fit('Registrando producto', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
     component.formularioSuscripcion.controls.idSuscripcion.setValue('1');
     component.formularioSuscripcion.controls.idCliente.setValue('1');
