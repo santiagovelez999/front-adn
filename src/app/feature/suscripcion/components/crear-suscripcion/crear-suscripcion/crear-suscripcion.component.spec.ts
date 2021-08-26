@@ -16,7 +16,6 @@ describe('CrearSuscripcionComponent', () => {
   let component: CrearSuscripcionComponent;
   let fixture: ComponentFixture<CrearSuscripcionComponent>;
   let suscripcionServiceSpy: jasmine.SpyObj<SuscripcionService>;
-  
   const FECHA_ENVIO = '2021-08-12 00:00:00';
 
   const respuesta = {

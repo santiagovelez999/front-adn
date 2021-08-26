@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -23,6 +24,7 @@ export class ListarSuscripcionComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginador: MatPaginator;
   @ViewChild(MatSort) ordenar: MatSort;
+  buscador = new FormControl('');
 
   constructor(protected suscripcionService: SuscripcionService, public dialog: MatDialog){}
 
@@ -56,7 +58,9 @@ export class ListarSuscripcionComponent implements OnInit {
       data: datosSuscripcion
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (result) {
+        this.buscador.setValue('');
         this.listarSuscripciones();
       }
     });

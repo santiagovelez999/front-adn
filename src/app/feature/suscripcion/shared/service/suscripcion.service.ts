@@ -4,9 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Suscripcion } from '../model/suscripcion';
 import { SuscripcionInterface } from '../model/suscripcionInterface';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SuscripcionService {
 
   private nombreEntidad = '/suscripcion';

@@ -31,15 +31,15 @@ describe('ListarSuscripcionComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ListarSuscripcionComponent ],
       imports: [
-        FormsModule, 
-        ReactiveFormsModule , 
-        MatTableModule, 
-        MatDialogModule, 
+        FormsModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatDialogModule,
         RouterModule.forRoot([]),
         SuscripcionModule,
         AppModule
       ],
-      providers: [ 
+      providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
         { provide: SuscripcionService, useValue: suscripcionServiceSpy }

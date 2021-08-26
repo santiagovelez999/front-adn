@@ -118,7 +118,6 @@ export class CrearSuscripcionComponent implements OnInit {
         this.formularioInvalido = false;
         const datosAEnviar: SuscripcionInterface = this.prepararDatosDeEnvio();
         this.suscripcionService.guardar(datosAEnviar).subscribe(respuesta => {
-          console.log(respuesta);
           this.mostrarMensajes(this.titulosMensajes.correcto.titulo,
             this.titulosMensajes.correcto.icono,
             this.prepararMensajeGuardar(respuesta.valor),
@@ -126,7 +125,6 @@ export class CrearSuscripcionComponent implements OnInit {
           this.limpiarFormulario();
           this.formularioInvalido = false;
         }, error => {
-          console.log(error.error.mensaje);
           this.mostrarMensajes(this.titulosMensajes.incorrecto.titulo,
             this.titulosMensajes.incorrecto.icono,
             error.error.mensaje,
@@ -216,7 +214,7 @@ export class CrearSuscripcionComponent implements OnInit {
 
   // Metodo encargado de cerrar la modal
   ocultarVentana(){
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 
 }
