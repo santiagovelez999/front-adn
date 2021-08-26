@@ -8,14 +8,15 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { Suscripcion } from '@suscripcion/shared/model/suscripcion';
 import { SuscripcionService } from '@suscripcion/shared/service/suscripcion.service';
+import { SuscripcionModule } from '@suscripcion/suscripcion.module';
 import { of } from 'rxjs';
+import { AppModule } from 'src/app/app.module';
 
 import { ListarSuscripcionComponent } from './listar-suscripcion.component';
 
 describe('ListarSuscripcionComponent', () => {
   let component: ListarSuscripcionComponent;
   let fixture: ComponentFixture<ListarSuscripcionComponent>;
-  let suscripcionService: SuscripcionService;
 
   const listaSuscripciones: Suscripcion[] = [new Suscripcion(1 , 1 , 70000 , 'XXX' , new Date()),
                                              new Suscripcion(2 , 2 , 40000 , 'XV' , new Date())
@@ -30,7 +31,9 @@ describe('ListarSuscripcionComponent', () => {
         ReactiveFormsModule , 
         MatTableModule, 
         MatDialogModule, 
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        SuscripcionModule,
+        AppModule
       ],
       providers: [SuscripcionService, HttpClient,  
         { provide: MAT_DIALOG_DATA, useValue: {} },
@@ -40,6 +43,7 @@ describe('ListarSuscripcionComponent', () => {
   });
 
   beforeEach(() => {
+    let suscripcionService = TestBed.inject(SuscripcionService);
     fixture = TestBed.createComponent(ListarSuscripcionComponent);
     component = fixture.componentInstance;
     spyOn(suscripcionService, 'consultar').and.returnValue(

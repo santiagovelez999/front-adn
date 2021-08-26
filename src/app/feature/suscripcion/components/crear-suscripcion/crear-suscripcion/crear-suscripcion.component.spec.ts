@@ -8,14 +8,16 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SuscripcionService } from '@suscripcion/shared/service/suscripcion.service';
+import { SuscripcionModule } from '@suscripcion/suscripcion.module';
 import { of } from 'rxjs';
+import { AppModule } from 'src/app/app.module';
 
 import { CrearSuscripcionComponent } from './crear-suscripcion.component';
 
 describe('CrearSuscripcionComponent', () => {
   let component: CrearSuscripcionComponent;
   let fixture: ComponentFixture<CrearSuscripcionComponent>;
-  let suscripcionService: SuscripcionService;
+ 
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -28,7 +30,9 @@ describe('CrearSuscripcionComponent', () => {
         HttpClientTestingModule, 
         MatTableModule, 
         MatDialogModule, 
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        SuscripcionModule,
+        AppModule
       ],
       providers: [SuscripcionService, HttpClient,
         { provide: MAT_DIALOG_DATA, useValue: {} },
@@ -38,6 +42,7 @@ describe('CrearSuscripcionComponent', () => {
   });
 
   beforeEach(() => {
+    let suscripcionService = TestBed.inject(SuscripcionService);
     fixture = TestBed.createComponent(CrearSuscripcionComponent);
     component = fixture.componentInstance;
     suscripcionService = TestBed.inject(SuscripcionService);
