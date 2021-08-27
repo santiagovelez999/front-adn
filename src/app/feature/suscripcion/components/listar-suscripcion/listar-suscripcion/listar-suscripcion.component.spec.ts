@@ -1,7 +1,7 @@
 
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { Suscripcion } from '@suscripcion/shared/model/suscripcion';
@@ -12,7 +12,7 @@ import { AppModule } from 'src/app/app.module';
 
 import { ListarSuscripcionComponent } from './listar-suscripcion.component';
 
-describe('ListarSuscripcionComponent', () => {
+fdescribe('ListarSuscripcionComponent', () => {
   let component: ListarSuscripcionComponent;
   let fixture: ComponentFixture<ListarSuscripcionComponent>;
   let suscripcionServiceSpy: jasmine.SpyObj<SuscripcionService>;
@@ -45,7 +45,6 @@ describe('ListarSuscripcionComponent', () => {
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} },
         { provide: SuscripcionService, useValue: suscripcionServiceSpy }
       ]
     })
@@ -60,6 +59,7 @@ describe('ListarSuscripcionComponent', () => {
 
   it('Validar creación de component', () => {
     expect(component).toBeTruthy();
+    console.log('Validar creación de component');
   });
 
   it('Listar', fakeAsync(() => {
@@ -67,13 +67,15 @@ describe('ListarSuscripcionComponent', () => {
     tick();
     fixture.detectChanges();
     expect(2).toBe(component.dataSource.data.length);
+    console.log('Listar');
   }));
 
   it('Eliminar', fakeAsync(() => {
-    let idSuscripcion = 1;
+    const idSuscripcion = 1;
     component.eliminar(idSuscripcion);
     tick();
     fixture.detectChanges();
     expect(true).toBe(component.registroEliminado);
+    console.log('Eliminar');
   }));
 });

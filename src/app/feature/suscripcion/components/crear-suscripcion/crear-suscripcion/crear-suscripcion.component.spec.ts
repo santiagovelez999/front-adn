@@ -12,10 +12,11 @@ import { AppModule } from 'src/app/app.module';
 
 import { CrearSuscripcionComponent } from './crear-suscripcion.component';
 
-describe('CrearSuscripcionComponent', () => {
+fdescribe('CrearSuscripcionComponent', () => {
   let component: CrearSuscripcionComponent;
   let fixture: ComponentFixture<CrearSuscripcionComponent>;
   let suscripcionServiceSpy: jasmine.SpyObj<SuscripcionService>;
+  let dialogRef: jasmine.SpyObj<MatDialogRef<CrearSuscripcionComponent>>;
   const FECHA_ENVIO = '2021-08-12 00:00:00';
 
   const respuesta = {
@@ -47,7 +48,7 @@ describe('CrearSuscripcionComponent', () => {
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} },
+        { provide: MatDialogRef, useValue: dialogRef },
         { provide: SuscripcionService, useValue: suscripcionServiceSpy }],
     })
       .compileComponents();
@@ -61,15 +62,16 @@ describe('CrearSuscripcionComponent', () => {
 
   it('Validar creación de component', () => {
     expect(component).toBeTruthy();
+    console.log('Validar creación de component');
   });
 
   it('Formulario es invalido cuando esta vacio', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
+    console.log('Formulario es invalido cuando esta vacio');
   });
 
   it('Registrando Suscripción', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
-    component.formularioSuscripcion.controls.idSuscripcion.setValue('1');
     component.formularioSuscripcion.controls.idCliente.setValue('1');
     component.formularioSuscripcion.controls.valorSuscripcion.setValue('40000');
     component.formularioSuscripcion.controls.tipoSuscripcion.setValue('XV');
@@ -77,18 +79,19 @@ describe('CrearSuscripcionComponent', () => {
     expect(component.formularioSuscripcion.valid).toBeTruthy();
     component.guardar();
     expect(component.formularioInvalido).toBeFalse();
+    console.log('Registrando Suscripción');
   });
 
   it('Actualizar Suscripción', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
     component.idSuscripcion = 1;
-    component.formularioSuscripcion.controls.idSuscripcion.setValue('2');
-    component.formularioSuscripcion.controls.idCliente.setValue('2');
+    component.formularioSuscripcion.controls.idCliente.setValue('1');
     component.formularioSuscripcion.controls.valorSuscripcion.setValue('40000');
     component.formularioSuscripcion.controls.tipoSuscripcion.setValue('XV');
     component.formularioSuscripcion.controls.fechaRegistro.setValue(new Date(FECHA_ENVIO));
     expect(component.formularioSuscripcion.valid).toBeTruthy();
     component.actualizar();
     expect(component.formularioInvalido).toBeFalse();
+    console.log('Actualizar Suscripción');
   });
 });
