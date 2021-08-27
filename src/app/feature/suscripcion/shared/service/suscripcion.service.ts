@@ -22,4 +22,8 @@ export class SuscripcionService {
   public actualizar(suscripcion: SuscripcionInterface) {
     return this.http.put<any>(`${environment.endpoint}${this.nombreEntidad}/${suscripcion.idSuscripcion}`, suscripcion);
   }
+
+  public eliminar(idSuscripcion: number) {
+    return this.http.delete<any>(`${environment.endpoint}${this.nombreEntidad}/${idSuscripcion}`);
+  }
 }

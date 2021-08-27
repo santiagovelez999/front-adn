@@ -66,6 +66,9 @@ export class ListarSuscripcionComponent implements OnInit {
     });
   }
 
+  /*
+    Metodo encargado de aplicar filtro
+  */
   aplicarFiltro(event: Event) {
     const valorFiltro = (event.target as HTMLInputElement).value;
     this.dataSource.filter = valorFiltro.trim().toLowerCase();
@@ -74,4 +77,18 @@ export class ListarSuscripcionComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  /*
+    Metodo encargado de eliminar registro
+  */
+  eliminar(idSuscripcion:number) {
+    this.suscripcionService.eliminar(idSuscripcion).subscribe(async (respuesta) => {
+      console.log(respuesta);
+      this.buscador.setValue('');
+      this.listarSuscripciones();
+    }
+    );
+    this.preloader = false;
+  }
+
 }

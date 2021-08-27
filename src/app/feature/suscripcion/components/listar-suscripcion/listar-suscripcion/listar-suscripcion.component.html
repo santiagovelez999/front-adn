@@ -14,7 +14,8 @@
         <mat-card-content>
             <div>
                 <mat-form-field appearance="standard">
-                    <input [formControl]="buscador" matInput (keyup)="aplicarFiltro($event)" placeholder="Buscar..." id="busquedaSuscripcion">
+                    <input [formControl]="buscador" matInput (keyup)="aplicarFiltro($event)" placeholder="Buscar..."
+                        id="busquedaSuscripcion">
                 </mat-form-field>
             </div>
             <div id="contenedorTabla">
@@ -48,13 +49,18 @@
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="opcion">
-                        <th mat-header-cell *matHeaderCellDef> OPCIOÓN </th>
+                        <th mat-header-cell *matHeaderCellDef> OPCIÓN </th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-mini-fab color="primary" aria-label="Editar información"
-                                id = "linkActualizarSuscripcion"
-                                (click)="abrirModalDeCrear(element);">
-                                <mat-icon>mode_edit</mat-icon>
-                            </button>
+                            <div>
+                                <button mat-mini-fab color="primary" aria-label="Editar información"
+                                    id="linkActualizarSuscripcion" (click)="abrirModalDeCrear(element);">
+                                    <mat-icon>mode_edit</mat-icon>
+                                </button>
+                                <button mat-mini-fab color="warn" aria-label="Eliminar información"
+                                    id="linkEliminarSuscripcion" (click)="eliminar(element.idSuscripcion);">
+                                    <mat-icon>delete_outline</mat-icon>
+                                </button>
+                            </div>
                         </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
