@@ -40,4 +40,12 @@ describe('workspace-project Suscripcion', () => {
         suscripcion.ingresarFechaRegistro(FECHA_REGISTRO);
         suscripcion.clickBotonCrear();
     });
+
+    it('Deberia eliminar', () => {
+        page.navigateTo();
+        navBar.clickBotonSuscripcion();
+        suscripcion.clickBotonListaruscripcion();
+        suscripcion.clickBotonEliminaruscripcion();
+        suscripcion.clickBotonCrear();
+    });
 });

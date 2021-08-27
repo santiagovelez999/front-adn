@@ -25,6 +25,7 @@ export class ListarSuscripcionComponent implements OnInit {
   @ViewChild(MatPaginator) paginador: MatPaginator;
   @ViewChild(MatSort) ordenar: MatSort;
   buscador = new FormControl('');
+  registroEliminado:boolean = false;
 
   constructor(protected suscripcionService: SuscripcionService, public dialog: MatDialog){}
 
@@ -82,10 +83,15 @@ export class ListarSuscripcionComponent implements OnInit {
     Metodo encargado de eliminar registro
   */
   eliminar(idSuscripcion:number) {
-    this.suscripcionService.eliminar(idSuscripcion).subscribe(async (respuesta) => {
+    this.suscripcionService.eliminar(idSuscripcion).subscribe(async (respuesta) => 
+    {
       console.log(respuesta);
+      this.registroEliminado = true;
       this.buscador.setValue('');
       this.listarSuscripciones();
+    },error => {
+      console.log(error);
+      this.registroEliminado = false;
     }
     );
     this.preloader = false;

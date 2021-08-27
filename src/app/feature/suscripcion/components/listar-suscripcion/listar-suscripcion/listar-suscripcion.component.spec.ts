@@ -22,10 +22,14 @@ describe('ListarSuscripcionComponent', () => {
 
   beforeEach(async () => {
     suscripcionServiceSpy = jasmine.createSpyObj('SuscripcionService', [
-      'consultar',
+      'consultar', 'eliminar',
     ]);
     suscripcionServiceSpy.consultar.and.returnValue(
       of(listaSuscripciones)
+    );
+
+    suscripcionServiceSpy.eliminar.and.returnValue(
+      of(true)
     );
 
     await TestBed.configureTestingModule({
@@ -63,5 +67,13 @@ describe('ListarSuscripcionComponent', () => {
     tick();
     fixture.detectChanges();
     expect(2).toBe(component.dataSource.data.length);
+  }));
+
+  it('Eliminar', fakeAsync(() => {
+    let idSuscripcion = 1;
+    component.eliminar(idSuscripcion);
+    tick();
+    fixture.detectChanges();
+    expect(true).toBe(component.registroEliminado);
   }));
 });

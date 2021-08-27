@@ -7,6 +7,7 @@ export class SuscripcionPage {
     private linkCrearSuscripcion = element(by.id('linkCrearSuscripcion'));
     private linkActualizarSuscripcion = element(by.id('linkActualizarSuscripcion'));
     private linkListarSuscripcion = element(by.id('linkListarSuscripcion'));
+    private linkEliminarSuscripcion = element(by.id('linkEliminarSuscripcion'));
 
     // Campos de texto
     private inputIdCliente = element(by.id('idCliente'));
@@ -30,6 +31,10 @@ export class SuscripcionPage {
 
     async clickBotonListaruscripcion() {
         await this.linkListarSuscripcion.click();
+    }
+
+    async clickBotonEliminaruscripcion() {
+        await this.linkEliminarSuscripcion.click();
     }
 
     async clickBotonCrear() {

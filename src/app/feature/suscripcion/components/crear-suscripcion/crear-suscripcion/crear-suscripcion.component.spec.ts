@@ -67,7 +67,7 @@ describe('CrearSuscripcionComponent', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
   });
 
-  fit('Registrando Suscripción', () => {
+  it('Registrando Suscripción', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
     component.formularioSuscripcion.controls.idSuscripcion.setValue('1');
     component.formularioSuscripcion.controls.idCliente.setValue('1');
@@ -79,7 +79,7 @@ describe('CrearSuscripcionComponent', () => {
     expect(component.formularioInvalido).toBeFalse();
   });
 
-  fit('Actualizar Suscripción', () => {
+  it('Actualizar Suscripción', () => {
     expect(component.formularioSuscripcion.valid).toBeFalsy();
     component.idSuscripcion = 1;
     component.formularioSuscripcion.controls.idSuscripcion.setValue('2');
