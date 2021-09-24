@@ -27,6 +27,12 @@
       "@core-service/*": [
         "src/app/core/services/*"
       ],
+      "@home/*": [
+        "src/app/feature/home/*"
+      ],
+      "@producto/*": [
+        "src/app/feature/producto/*"
+      ],
       "@suscripcion/*": [
         "src/app/feature/suscripcion/*"
       ],
