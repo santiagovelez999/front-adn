@@ -1,0 +1,32 @@
+mat-card-subtitle {
+    margin-top: 30px;
+}
+
+table th {
+    text-align: center;
+    padding: 5px;
+    word-wrap:break-word;
+}
+
+table td{
+   text-align: center;
+   word-wrap:break-word;
+}
+
+#contenedorListarProductos{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+#contenedorTabla{
+   overflow: hidden;
+}
+
+button{
+    margin: 3px;
+}

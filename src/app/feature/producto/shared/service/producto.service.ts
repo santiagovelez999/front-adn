@@ -9,8 +9,9 @@ export class ProductoService {
 
   constructor(protected http: HttpService) {}
 
-  public consultar() {
-    return this.http.doGet<Producto[]>(`${environment.endpoint}/tiposFamilia`, this.http.optsName('consultar productos'));
+  public consultar(page:number, size:number) {
+    let URL = "http://localhost:8080/productos?page=" + page +"&size=" + size + "";
+    return this.http.doGet<Producto[]>(URL, this.http.optsName('consultar productos'));
   }
 
   public guardar(producto: Producto) {

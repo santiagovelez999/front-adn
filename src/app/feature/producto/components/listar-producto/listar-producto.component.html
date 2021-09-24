@@ -1,8 +1,31 @@
-<p>listar-producto works!</p>
-<div id="productos">
-  <ul class="productos">
-    <li *ngFor="let item of listaProductos | async">
-      <span>{{item.id}}</span> {{item.descripcion}}
-    </li>
-  </ul>
+<div id="contenedorListarProductos">
+    <mat-card>
+        <mat-card-header>
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                <table mat-table [dataSource]="dataSource " class="mat-elevation-z8" matSort>
+                    <ng-container matColumnDef="idProducto">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID PRODUCTO </th>
+                        <td mat-cell *matCellDef="let element"> {{element.idProducto}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombreProducto">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPCIÓN PRODUCTO </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nombreProducto}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="precioProducto">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> VALOR PRODUCTO </th>
+                        <td mat-cell *matCellDef="let element"> {{element.precioProducto}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                    (page)="pageEvent = paginationData($event)"></mat-paginator>
+            </div>
+        </mat-card-content>
+    </mat-card>
 </div>
