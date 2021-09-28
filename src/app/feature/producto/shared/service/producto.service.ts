@@ -9,8 +9,8 @@ export class ProductoService {
 
   constructor(protected http: HttpService) {}
 
-  public consultar(page:number, size:number) {
-    let URL = "http://localhost:8080/productos?page=" + page +"&size=" + size + "";
+  public consultar(page:number, size:number, search:string = '') {
+    let URL = "http://localhost:8080/productos?page=" + page +"&size=" + size + "&search=" + search;
     return this.http.doGet<Producto[]>(URL, this.http.optsName('consultar productos'));
   }
 

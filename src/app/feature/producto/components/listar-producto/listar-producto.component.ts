@@ -6,6 +6,7 @@ import { Producto } from '@producto/shared/model/producto';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-listar-producto',
@@ -19,6 +20,7 @@ export class ListarProductoComponent implements OnInit {
   pageIndex:number;
   pageSize:number;
   length:number;
+  buscador = new FormControl('');
 
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['idProducto', 'nombreProducto', 'precioProducto'];
@@ -33,7 +35,8 @@ export class ListarProductoComponent implements OnInit {
   }
 
   listData(page:number, size:number){
-    this.listaProductos = this.productoService.consultar(page, size);
+    let sarch:string = this.buscador.value;
+    this.listaProductos = this.productoService.consultar(page, size, sarch);
     this.listaProductos.subscribe((res:any) => {
       this.dataSource = new MatTableDataSource(res.content);
       this.pageIndex = res.number;
@@ -48,4 +51,5 @@ export class ListarProductoComponent implements OnInit {
     this.pageIndex = this.pageIndex+1;
     return event;
   }
+
 }

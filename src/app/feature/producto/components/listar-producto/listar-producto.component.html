@@ -4,6 +4,16 @@
         </mat-card-header>
         <mat-card-content>
             <div>
+                <div>
+                    <mat-form-field appearance="standard">
+                        <input [formControl]="buscador" matInput placeholder="Buscar..."
+                            id="busquedaProducto">
+                        <button  mat-raised-button color="primary" aria-label="Buscar" 
+                        (click)="listData(0, 10)">Buscar
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
                 <table mat-table [dataSource]="dataSource " class="mat-elevation-z8" matSort>
                     <ng-container matColumnDef="idProducto">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID PRODUCTO </th>
